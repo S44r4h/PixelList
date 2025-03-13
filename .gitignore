@@ -1,0 +1,30 @@
+# Node.js
+client/node_modules/
+server/node_modules/
+
+
+# React (create-react-app)
+client/public/
+*.log
+
+# Environment files
+server/.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Tailwind
+*.css
+
+# OS/Editor specific files
+.DS_Store
+Thumbs.db
+
+# Vite (tai muista build tools)
+.vite/
+
+# NPM Debug Log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
