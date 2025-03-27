@@ -20,12 +20,13 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footter";
-
 const App = () => {
   return (
-    <div className="w-full container mx-auto px-8">
+    <div >
+      <div className="max-w-7xl mx-auto">
       <Navbar />
-      <Outlet />
+      <Outlet /> {/* Tänne tulee dynaaminen sisältö, esim. MainPage */}
+      </div>
       <Footer />
     </div>
   );

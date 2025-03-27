@@ -10,6 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/record", records)
 
+
+
 app.listen(PORT, () => {
     console.log(`server is listening ${PORT}`)
 })

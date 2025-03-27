@@ -1,14 +1,4 @@
-//import { StrictMode } from 'react'
-//import { createRoot } from 'react-dom/client'
-//import './index.css'
-//import App from './App.jsx'
-//
-//createRoot(document.getElementById('root')).render(
-//  <StrictMode>
-//    <App />
-//  </StrictMode>,
-//)
-//
+
 
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
@@ -17,10 +7,22 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
+
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
-import SigIn from './components/SigIn'
+import MainPage from "./components/MainPage";
+import SignIn from './components/SignIn';
+import Register from './components/Register';
 import "./index.css";
+
+
+// HOME LAYOUT
+
+
+
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <RecordList />,
+        element: <MainPage />,
       },
     ],
   },
@@ -54,12 +56,21 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/sigIn",
+    path: "/signIn",
     element: <App />,
     children: [
       {
-        path: "/sigIn",
-        element: <SigIn/>,
+        path: "/signIn",
+        element: <SignIn/>,
+      },
+    ],
+  },{
+    path: "/register",
+    element: <App />,
+    children: [
+      {
+        path: "/register",
+        element: <Register/>,
       },
     ],
   },
