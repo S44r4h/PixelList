@@ -1,7 +1,7 @@
 import express from "express";
 
 // This will help us connect to the database
-import db from "../db/connection.js";
+import { db }  from "../db/connection.js";
 
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
@@ -80,5 +80,17 @@ router.delete("/:id", async (req, res) => {
     res.status(500).send("Error deleting record");
   }
 });
+
+
+// TEST
+
+
+
+
+
+
+
+
+
 
 export default router;

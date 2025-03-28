@@ -22,6 +22,14 @@ try {
 }
 
 const db = client.db("employees");
-const usersDb = client.db("users");
 
-export default db;
+
+
+// TESTI
+const dbTest = client.db("sample_guides");
+
+const Userdb = client.db("users");
+
+
+
+export {db, dbTest, Userdb};

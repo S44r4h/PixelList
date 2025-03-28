@@ -23,7 +23,7 @@ import Footer from "./components/footter";
 const App = () => {
   return (
     <div >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
       <Navbar />
       <Outlet /> {/* Tänne tulee dynaaminen sisältö, esim. MainPage */}
       </div>

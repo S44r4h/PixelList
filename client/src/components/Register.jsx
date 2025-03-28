@@ -17,13 +17,34 @@ export default function SignUp() {
   });
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(registerform)
+
+
+
+    const person = { ...registerform };
+    console.log(person)
+    console.log(JSON.stringify(person))
+      let response;
+     
+        // if we are adding a new record we will POST to /user.
+        response = await fetch("http://localhost:5050/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(person),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+  
+
+
   }
-
-
-
 
     return (
     
@@ -46,4 +67,4 @@ export default function SignUp() {
         </form>
   
     );
-  }
+}
