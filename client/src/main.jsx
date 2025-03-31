@@ -13,6 +13,7 @@ import RecordList from "./components/RecordList";
 import MainPage from "./components/MainPage";
 import SignIn from './components/SignIn';
 import Register from './components/Register';
+import DashBoard from "./components/Dashboard";
 import "./index.css";
 
 
@@ -73,7 +74,16 @@ const router = createBrowserRouter([
         element: <Register/>,
       },
     ],
-  },
+  }, {
+    path: "/dashboard",
+    element: <App />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashBoard/>,
+      },
+    ],
+  }, 
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
