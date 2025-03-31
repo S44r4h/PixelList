@@ -1,20 +1,10 @@
 import express from "express";
+import bcrypt from "bcrypt"
 import { Userdb } from "../db/connection.js"; // Tuodaan testitietokanta
+
 const router = express.Router();
 
-// Lisää testidataa tietokantaan, kun menee /test
-router.get("/", async (req, res) => {
-  try {
-    let collection = await Userdb.collection("AAA"); // Luo / käytä testCollection-kokoelmaa
-    let testData = { message: "Tämä on testidata", timestamp: new Date() };
-    
-    let result = await collection.insertOne(testData);
-    res.status(201).send({ message: "Testidata lisätty!", result });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Virhe lisättäessä testidataa");
-  }
-});
+
 
 
 router.post("/", async (req, res) => {
@@ -24,6 +14,8 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     };
+    newDocument.password = await bcrypt.hash(newDocument.password, 10); // hashaa salasanan 2^10 =1024. mitä isompi, sitä kauemmin kestää ajaa funktio -> 12 & 14 super turvallinen
+    //12 tai 14 pitäisi olla superturvalline, 10 OK
     let collection = await Userdb.collection("accounts");
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);

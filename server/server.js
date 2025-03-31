@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/record", records)
 app.use("/test", testRoutes);
-app.use('/user', userRoutes)
+app.use('/user', userRoutes); // userRoutes-reitit alkavat polusta /user.
 
 app.listen(PORT, () => {
     console.log(`server is listening ${PORT}`)
