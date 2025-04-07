@@ -37,13 +37,16 @@ export default function SignUp() {
         }
       );
 
+      const data = await response.json();
 
+      //error handling and send to login page if correct
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        } else {
-          
+          alert(data.err)
+          } 
+         else {
           navigate("/"); // welcome "user sivu!"
         }
+       
   }
 
     return (
@@ -65,7 +68,7 @@ export default function SignUp() {
           <input name="password" type="password" className="input w-full" placeholder="Password" required="required" onChange={(e) => SetRegisterform({...registerform, password: e.target.value})} />
 
           <button type="submit" className="btn btn-primary mt-4">Register</button>
-          <p className="text-center p-4">You have account? <NavLink className=" text-primary" to="/signIn">Signup here!</NavLink></p>
+          <p className="text-center p-4">You have account? <NavLink className=" text-primary" to="/login">Signup here!</NavLink></p>
 
          
 

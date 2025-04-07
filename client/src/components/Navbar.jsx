@@ -24,7 +24,7 @@ export default function Navbar() {
       </ul>
     </div>
     <div className="navbar-end">
-    <NavLink to="/signIn" className="text-xl btn btn-primary">Sign In</NavLink>
+    <NavLink to="/login" className="text-xl btn btn-primary">Sign In</NavLink>
     </div>
   </div>
    
