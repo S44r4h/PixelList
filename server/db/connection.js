@@ -1,38 +1,3 @@
-//import { MongoClient, ServerApiVersion } from "mongodb";
-//
-//const uri = process.env.ATLAS_URI || "";
-//const client = new MongoClient(uri, {
-//  serverApi: {
-//    version: ServerApiVersion.v1,
-//    strict: true,
-//    deprecationErrors: true,
-//  },
-//});
-//
-//try {
-//  // Connect the client to the server
-//  await client.connect();
-//  // Send a ping to confirm a successful connection
-//  await client.db("admin").command({ ping: 1 });
-//  console.log(
-//   "Pinged your deployment. You successfully connected to MongoDB!"
-//  );
-//} catch(err) {
-//  console.error(err);
-//}
-//
-//const db = client.db("employees");
-//
-//
-//
-//// TESTI
-//const dbTest = client.db("sample_guides");
-//
-//const Userdb = await client.db("users");
-//
-//
-//
-//export {db, dbTest, Userdb};
 
 
 import mongoose from "mongoose";
@@ -48,8 +13,6 @@ const uri = process.env.ATLAS_URI || "";
 async function connectDB() {
   try {
     await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 5000, // 5s aikakatkaisu
     });
     console.log("MongoDB-yhteys onnistui!");
@@ -68,15 +31,7 @@ const dbTest = mongoose.connection.useDb("sample_guides");
 const Userdb = mongoose.connection.useDb("users");
 
 
-//TESTI
 
-//const testiKayt = new RegisterModel({
-//  name: "Riitta",
-//  email: "testi@joku.com",
-//  password: "joku80"
-//})
-//
-//await testiKayt.save();
 
 
 

@@ -1,7 +1,21 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
+
 export default function Navbar() {
+
+  useEffect(() => {
+    fetch('http://localhost:5050/signinuser/profile', {
+      credentials: 'include',
+      
+    })
+  }, [])
+
+
+
+
   return (
+    <header>
     <div className="navbar">
     <div className="navbar-start">
       <div className="dropdown">
@@ -25,8 +39,9 @@ export default function Navbar() {
     </div>
     <div className="navbar-end">
     <NavLink to="/login" className="text-xl btn btn-primary">Sign In</NavLink>
+
     </div>
   </div>
-   
+  </header>
   );
 }

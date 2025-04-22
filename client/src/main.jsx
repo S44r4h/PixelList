@@ -16,15 +16,6 @@ import Register from './components/Register';
 import DashBoard from "./components/Dashboard";
 import "./index.css";
 
-
-// HOME LAYOUT
-
-
-
-
-
-
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,6 +72,15 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashBoard/>,
+      },
+    ],
+  }, {
+    path: "/recordlist",
+    element: <App />,
+    children: [
+      {
+        path: "/recordlist",
+        element: <RecordList/>,
       },
     ],
   }, 

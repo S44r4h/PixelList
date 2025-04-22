@@ -17,7 +17,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('nappi toimii')
+    console.log('toimiiko?')
     const loginperson = { ...Loginform };
     let response;
 
@@ -34,10 +34,10 @@ export default function Register() {
     }
   );
 
-  const data = await response.json();
-  console.log(data)
-  if(data === "Success")  {
-    navigate("/");
+
+  if(response.ok)  {
+    console.log('onnistui kirjautuminen')
+    navigate("/dashboard");
   } else {
     alert("login failed")
   }

@@ -4,7 +4,7 @@ import records from "./routes/record.js";
 import testRoutes from "./routes/dbTest.js"; // Tuo uusi testireititin
 import userRoutes from './routes/userRoutes.js'
 import loginRoutes from './routes/loginRoutes.js';
-import profileRoutes from './routes/profileRoutes.js'
+//import profileRoutes from './routes/profileRoutes.js'
 
 
 const PORT = process.env.PORT || 5050;
@@ -30,7 +30,7 @@ app.use('/signinuser', loginRoutes)
 
 
 //vain kirjautuneille käyttäjille
-app.use('/profile', profileRoutes);
+//app.use('/profile', profileRoutes);
 
 
 

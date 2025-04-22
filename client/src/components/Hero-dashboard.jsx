@@ -1,4 +1,19 @@
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
 export default function HerodashBoard() {
+
+  const [userInfo, setUserInfo] = useState('');
+  
+  useEffect(() => {
+    axios.get('http://localhost:5050/signinuser/dashboard', { withCredentials: true }) // HUOM laita credentials true jos haluat et evästeet toimii
+      .then(res => setUserInfo(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
+
+
+
     return (
         <div className="relative px-2 pt-14 lg:px-8">
         <div
@@ -17,7 +32,7 @@ export default function HerodashBoard() {
          
           <div className="text-center">
             <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-            Welcome user!
+            Welcome {userInfo.name}
             </h1>
        
             <div className="mt-10 flex items-center justify-center gap-x-6">
