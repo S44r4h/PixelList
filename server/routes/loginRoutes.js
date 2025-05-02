@@ -12,17 +12,11 @@
 
 
 
-  /* create session */
 
-//router.use(session({
-//    secret: 'key that will sign cookie', // HUOM PIILOTA TÄÄ!
-//    resave: false,
-//    saveUninitialized: false // laita false myöh.
-//}))
 
 // sectret key for auth
 
-const sectret = 'kjs343kn3k36p5d0a1334hgw1'
+const sectret = 'kjs343kn3k36p5d0a1334hgw1' // LAITA TÄMÄ .env!
 
  
  /* Sign In */
@@ -38,9 +32,9 @@ const sectret = 'kjs343kn3k36p5d0a1334hgw1'
         const passwordMatch = await bcrypt.compare(password, user.password)
         if(passwordMatch) {
            console.log(`welcome ${user.name}`)
-           jwt.sign({id: user.id, name: user.name}, sectret, {}, (err, token) => {
+            jwt.sign({id: user.id, name: user.name}, sectret, {}, (err, token) => {
             if (err) throw err;
-            res.cookie('token', token).json('ok')
+            res.cookie('token', token).json(user)
            })
           //res.json({ id: user.id, name: user.name }) // VAIHDA SUCCSESS
         } else {
@@ -58,10 +52,15 @@ const sectret = 'kjs343kn3k36p5d0a1334hgw1'
 
   router.get('/profile', (req, res) => {
     const {token} =  req.cookies
-    jwt.verify(token, sectret, {}, (err, info) =>{ //tarkistaa annetun token(user.name & id) ja sectret
-      if (err) throw err;
-      res.json(info)
-    }) 
+    if(token) {
+      jwt.verify(token, sectret, {}, (err, user) =>{ //tarkistaa annetun token(user.name & id) ja sectret
+        if (err) throw err;
+        res.json(user)
+      }) 
+    } else {
+      res.json(null)
+    }
+    
   })
 
 
@@ -81,11 +80,9 @@ const sectret = 'kjs343kn3k36p5d0a1334hgw1'
   //});
 //
   //
- // router.get("/logout", async (req, res) => {
- //   req.session.destroy();
- //   user
- //   res.status(200).json({ message: `you have logout`});
- // });
+  router.post("/logout", async (req, res) => {
+    res.cookie('token', '').json('ok')
+  });
 
 
   export default router;

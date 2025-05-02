@@ -4,11 +4,15 @@ import records from "./routes/record.js";
 import testRoutes from "./routes/dbTest.js"; // Tuo uusi testireititin
 import userRoutes from './routes/userRoutes.js'
 import loginRoutes from './routes/loginRoutes.js';
+import cookieParser from 'cookie-parser'
 //import profileRoutes from './routes/profileRoutes.js'
 
 
 const PORT = process.env.PORT || 5050;
 const app = express();
+app.use(cookieParser())
+
+
 
 
 app.use(cors({
@@ -27,6 +31,7 @@ app.use("/record", records)
 app.use("/test", testRoutes);
 app.use('/user', userRoutes); // esim. userRoutes-reitit alkavat polusta /user.
 app.use('/signinuser', loginRoutes)
+
 
 
 //vain kirjautuneille käyttäjille

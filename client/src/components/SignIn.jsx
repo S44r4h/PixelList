@@ -2,6 +2,9 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
+
 
 
 
@@ -14,6 +17,7 @@ export default function Register() {
   });
 
   const navigate = useNavigate()
+  const { setUser, loading  } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,10 +38,15 @@ export default function Register() {
     }
   );
 
+  
+  const userData = await response.json();
 
   if(response.ok)  {
-    console.log('onnistui kirjautuminen')
-    navigate("/dashboard");
+    
+    setUser(userData);
+    console.log('onnistui kirjautuminen' + userData)
+
+      navigate("/dashboard");
   } else {
     alert("login failed")
   }

@@ -1,17 +1,14 @@
-import { useState, useEffect } from "react";
-import axios from 'axios';
+import {useContext } from "react";
+import { UserContext } from "../../context/userContext";
+
 
 export default function HerodashBoard() {
 
-  const [userInfo, setUserInfo] = useState('');
+
+  const { user } = useContext(UserContext);
   
-  useEffect(() => {
-    axios.get('http://localhost:5050/signinuser/dashboard', { withCredentials: true }) // HUOM laita credentials true jos haluat et evästeet toimii
-      .then(res => setUserInfo(res.data))
-      .catch(err => console.log(err));
-  }, []);
 
-
+  console.log('Current user:', user);  // Debuggaus konsolissa
 
 
     return (
@@ -31,9 +28,9 @@ export default function HerodashBoard() {
         <div className="mx-auto max-w-2xl py-5 sm:py-5 lg:py-5">
          
           <div className="text-center">
-            <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-            Welcome {userInfo.name}
-            </h1>
+            
+            {!!user && (<h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">Hi {user.name}!</h1>)}
+            
        
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a

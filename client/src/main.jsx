@@ -14,6 +14,7 @@ import MainPage from "./components/MainPage";
 import SignIn from './components/SignIn';
 import Register from './components/Register';
 import DashBoard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoutes";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -71,7 +72,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <DashBoard/>,
+        element: (
+          <ProtectedRoute>
+            <DashBoard />
+          </ProtectedRoute>
+        ),
       },
     ],
   }, {
