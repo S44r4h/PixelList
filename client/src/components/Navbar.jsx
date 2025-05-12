@@ -5,21 +5,9 @@ import { UserContext } from "../../context/userContext";
 
 
 export default function Navbar() {
-//  const { setUserInfo, userInfo} = useContext(UserContext);
-// 
-//  useEffect(() => {
-//    fetch('http://localhost:4000/profile', {
-//      credentials: 'include',
-//    }).then(response => {
-//      response.json().then(userInfo => {
-//        setUserInfo(userInfo);
-//      });
-//    });
-//  }, []);
-//
 
 const { user } = useContext(UserContext);
-console.log(user)
+
 
   function logout() {
     fetch('http://localhost:5050/signinuser/logout', {
@@ -64,7 +52,7 @@ console.log(user)
       <NavLink>
               <div className="avatar avatar-placeholder px-3">
                 <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                  <span>
+                  <span className="uppercase">
                     {user.name[0]}
                   </span>
                 </div>

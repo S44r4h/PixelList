@@ -15,6 +15,8 @@ import SignIn from './components/SignIn';
 import Register from './components/Register';
 import DashBoard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import GameForm from "./components/GameForm"
+import GameAdminPanel from "./components/GameAdminPanel";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -88,7 +90,21 @@ const router = createBrowserRouter([
         element: <RecordList/>,
       },
     ],
-  }, 
+  },
+  {
+    path: "/adminpanel",
+    element: <App />,
+    children: [
+      {
+        path: "/adminpanel",
+        element: (
+          <ProtectedRoute>
+            <GameAdminPanel />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

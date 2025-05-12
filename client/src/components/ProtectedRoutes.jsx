@@ -4,7 +4,6 @@ import { UserContext } from "../../context/userContext";
 
 const ProtectedRoutes = ({ children }) => {
     const { user, loading } = useContext(UserContext);
-    console.log(`tässä on protRout ${user } + ${loading}`)
     if (loading) return <div>Loading...</div>
     if (!user) return <Navigate to="/login" replace />;
 

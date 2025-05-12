@@ -4,6 +4,7 @@ import records from "./routes/record.js";
 import testRoutes from "./routes/dbTest.js"; // Tuo uusi testireititin
 import userRoutes from './routes/userRoutes.js'
 import loginRoutes from './routes/loginRoutes.js';
+import gameRoutes from './routes/gameRoutes.js'
 import cookieParser from 'cookie-parser'
 //import profileRoutes from './routes/profileRoutes.js'
 
@@ -31,6 +32,7 @@ app.use("/record", records)
 app.use("/test", testRoutes);
 app.use('/user', userRoutes); // esim. userRoutes-reitit alkavat polusta /user.
 app.use('/signinuser', loginRoutes)
+app.use('/editgames', gameRoutes)
 
 
 
