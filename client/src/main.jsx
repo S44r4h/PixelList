@@ -15,8 +15,8 @@ import SignIn from './components/SignIn';
 import Register from './components/Register';
 import DashBoard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import GameForm from "./components/GameForm"
 import GameAdminPanel from "./components/GameAdminPanel";
+import { GameContextProvider } from "./context/GameContext"
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -99,7 +99,9 @@ const router = createBrowserRouter([
         path: "/adminpanel",
         element: (
           <ProtectedRoute>
+          <GameContextProvider>
             <GameAdminPanel />
+          </GameContextProvider>
           </ProtectedRoute>
         ),
       },

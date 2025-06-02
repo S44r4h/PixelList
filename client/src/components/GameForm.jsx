@@ -1,8 +1,13 @@
 
 import Select from 'react-select'
 import { useState } from "react";
+import { UseGamesContext } from "../hooks/useGamesContext";
+import { genreOptions } from "../data/genreOptions";
 
-export default function gameForm() {
+
+export default function GameForm() {
+
+  const {dispatch} = UseGamesContext()
 
     const customStyles = {
         control: (base) => ({
@@ -23,36 +28,16 @@ export default function gameForm() {
 
 
 
-
-      const options = [
-        { value: 'action', label: 'Action' },
-        { value: 'adventure', label: 'Adventure' },
-        { value: 'rpg', label: 'RPG' },
-        { value: 'fps', label: 'First-Person Shooter' },
-        { value: 'strategy', label: 'Strategy' },
-        { value: 'simulation', label: 'Simulation' },
-        { value: 'sports', label: 'Sports' },
-        { value: 'racing', label: 'Racing' },
-        { value: 'platformer', label: 'Platformer' },
-        { value: 'horror', label: 'Horror' },
-        { value: 'puzzle', label: 'Puzzle' },
-        { value: 'multiplayer', label: 'Multiplayer' },
-        { value: 'sandbox', label: 'Sandbox' },
-        { value: 'indie', label: 'Indie' }
-      ];
-
       const [Gameform, SetGameform] = useState({
           title: "",
           platform: [],
           genre: "",
         });
 
-  
-      //const [checked, setChecked] = useState(false) // Checkbox toggle
+
 
       const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('toimiiko?')
 
         let response;
 
@@ -66,10 +51,22 @@ export default function gameForm() {
           }
         );
 
-        const data = await response.json();
-        console.log(Gameform)
-        console.log(data)
-        window.location.reload();
+        const json = await response.json()
+
+        if(!response.ok) {
+          console.log(json.error)
+        }
+        if(response.ok) {
+          SetGameform({
+            title: "",
+            platform: [],
+            genre: "",
+            });
+          alert('Game added')
+          dispatch({type: 'CREATE_GAME', payload: json})
+        }
+
+
       }
 
       const handleChange = (selected) => {
@@ -102,23 +99,23 @@ export default function gameForm() {
           <legend className="fieldset-legend">Add games</legend>
 
           <label className="fieldset-label">Name</label>
-          <input name="title"  type="text" className="input w-full" placeholder="title" required="required" onChange={(e) => SetGameform({...Gameform, title: e.target.value})} />
+          <input name="title"  type="text" className="input w-full" placeholder="title" required="required" value={Gameform.title}  onChange={(e) => SetGameform({...Gameform, title: e.target.value})} />
 
           <label className="fieldset-label">Platform</label>
           <div class="flex items-center">
-          <input type="checkbox" name="PC" className="checkbox checkbox-primary" value="PC" onChange={handlecheckBox} />
+          <input type="checkbox" name="PC" className="checkbox checkbox-primary" value="PC" checked={Gameform.platform.includes("PC")} onChange={handlecheckBox} />
             <label for="default-checkbox-1" class="ms-2 text-sm">PC</label>
           </div>
           <div class="flex items-center">
-          <input type="checkbox" name="ps5" className="checkbox checkbox-primary" value="ps5" onChange={handlecheckBox}/>
+          <input type="checkbox" name="ps5" className="checkbox checkbox-primary" value="ps5" checked={Gameform.platform.includes("ps5")}  onChange={handlecheckBox}/>
           <label for="default-checkbox-2" class="ms-2 text-sm">Playstation 5</label>
          </div>
          <div class="flex items-center">
-          <input type="checkbox" name="switch" className="checkbox checkbox-primary" value="switch"  onChange={handlecheckBox}/>
+          <input type="checkbox" name="switch" className="checkbox checkbox-primary" value="switch" checked={Gameform.platform.includes("switch")}  onChange={handlecheckBox}/>
           <label for="default-checkbox-2" class="ms-2 text-sm">Nintendo Switch</label>
          </div>
          <div class="flex items-center">
-          <input type="checkbox" name="xboxone" className="checkbox checkbox-primary" value="xboxone" onChange={handlecheckBox}/>
+          <input type="checkbox" name="xboxone" className="checkbox checkbox-primary" value="xboxone" checked={Gameform.platform.includes("xboxone")}  onChange={handlecheckBox}/>
           <label for="default-checkbox-2" class="ms-2 text-sm">Xbox One</label>
          </div>
           
@@ -129,12 +126,12 @@ export default function gameForm() {
            
             isMulti
             name="colors"
-            options={options}
+            options={genreOptions}
             className="basic-multi-select"
             classNamePrefix="select"
             styles={customStyles}
+            value={Gameform.genre} 
             onChange={handleChange}
-            
             />
 
           <button type="submit" className="btn btn-primary mt-4">Add game</button>

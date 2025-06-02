@@ -3,7 +3,7 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { useContext } from "react";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../context/userContext";
 
 
 
