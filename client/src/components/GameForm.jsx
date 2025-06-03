@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { useState } from "react";
 import { UseGamesContext } from "../hooks/useGamesContext";
 import { genreOptions } from "../data/genreOptions";
-
+import { toast } from 'react-toastify';
 
 export default function GameForm() {
 
@@ -62,8 +62,8 @@ export default function GameForm() {
             platform: [],
             genre: "",
             });
-          alert('Game added')
           dispatch({type: 'CREATE_GAME', payload: json})
+          toast.dark('game added')
         }
 
 

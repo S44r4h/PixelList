@@ -3,7 +3,7 @@ import { UseGamesContext } from "../hooks/useGamesContext";
 import { genreOptions } from "../data/genreOptions";
 import UpdateGameForm from "../components/UpdateGameForm"
 import Select from 'react-select'
-
+import { toast } from 'react-toastify';
 
 
 
@@ -45,6 +45,7 @@ export default function GameList() {
 
       if(response.ok) {
         dispatch({type: 'DELETE_GAME', payload: json})
+        toast.dark('game deleted')
       }
     }
 
@@ -52,18 +53,6 @@ export default function GameList() {
 
   const onEdit  = async (game) => {
     setCurrentgame(game)
-   // const response = await fetch(`http://localhost:5050/editgames/${id}`, {
-   //     method: 'GET'
-   //   })
-
-    //  const json = await response.json()
-    //  //setUpatedeForm(formvaluesjson)
-    //  //console.log(id)
-    //  //
-    //  if(response.ok) {
-    //    dispatch({type: 'UPDATE_GAME', payload: json})
-    //  }
-      
   }
 
 return(
@@ -97,7 +86,7 @@ return(
           {/* if there is a button in form, it will close the modal */}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-        <h3 className="font-bold text-lg">Edit game {item.title}</h3>
+        <h3 className="font-bold text-lg">Edit game</h3>
         <UpdateGameForm currentGame = {currentGame} setCurrentgame = {setCurrentgame}/>
         <p className="py-4">click on ✕ button to close</p>
       </div>

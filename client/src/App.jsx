@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footter";
 import { UserContextProvider } from "./context/userContext";
+import { ToastContainer} from 'react-toastify';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Outlet /> {/* Tänne tulee dynaaminen sisältö*/}
       </div>
       <Footer /> {/* Footter */}
+      <ToastContainer/>
     </UserContextProvider> 
   );
 };

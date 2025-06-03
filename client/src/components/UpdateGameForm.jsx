@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { useEffect, useState } from "react";
 import { UseGamesContext } from "../hooks/useGamesContext";
 import { genreOptions } from "../data/genreOptions";
-
+import { toast } from 'react-toastify';
 export default function UpdateGameForm({currentGame}) {
 
 
@@ -59,8 +59,16 @@ export default function UpdateGameForm({currentGame}) {
            
           }
         );
-        /* TEE TÄHÄN SE DISPACTH JUTTU */
-        console.log(currentGame._id)
+
+        const json = await response.json()
+
+        if(response.ok) {
+        dispatch({type: 'UPDATE_GAME', payload: json})
+        toast.dark('game updated')
+        const modal = document.getElementById('my_modal_3');
+        modal.close() 
+      }
+        
       }
 
       const handleChange = (selected) => {
