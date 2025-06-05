@@ -1,22 +1,18 @@
-
-
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import MainPage from "./components/MainPage";
-import SignIn from './components/SignIn';
-import Register from './components/Register';
+import SignIn from "./components/SignIn";
+import Register from "./components/Register";
 import DashBoard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import GameAdminPanel from "./components/GameAdminPanel";
-import { GameContextProvider } from "./context/GameContext"
+import { GameContextProvider } from "./context/GameContext";
+import AdminRoutes from "./components/AdminRoutes";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -56,19 +52,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <SignIn/>,
+        element: <SignIn />,
       },
     ],
-  },{
+  },
+  {
     path: "/register",
     element: <App />,
     children: [
       {
         path: "/register",
-        element: <Register/>,
+        element: <Register />,
       },
     ],
-  }, {
+  },
+  {
     path: "/dashboard",
     element: <App />,
     children: [
@@ -81,13 +79,14 @@ const router = createBrowserRouter([
         ),
       },
     ],
-  }, {
+  },
+  {
     path: "/recordlist",
     element: <App />,
     children: [
       {
         path: "/recordlist",
-        element: <RecordList/>,
+        element: <RecordList />,
       },
     ],
   },
@@ -98,11 +97,11 @@ const router = createBrowserRouter([
       {
         path: "/adminpanel",
         element: (
-          <ProtectedRoute>
-          <GameContextProvider>
-            <GameAdminPanel />
-          </GameContextProvider>
-          </ProtectedRoute>
+          <AdminRoutes>
+            <GameContextProvider>
+              <GameAdminPanel />
+            </GameContextProvider>
+          </AdminRoutes>
         ),
       },
     ],
