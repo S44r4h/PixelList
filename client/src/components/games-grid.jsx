@@ -1,6 +1,6 @@
 import { content } from "../data/frontPageGrid.js";
 import { useEffect, useState } from "react";
-import Record from "./Record.jsx";
+import { toast } from "react-toastify";
 
 export default function Gamesgrid() {
   /* Add games to browser */
@@ -21,6 +21,25 @@ export default function Gamesgrid() {
     getGames();
     return;
   }, [games.length]);
+
+  /* ADD SELECTED GAME TO WISHLIST */
+  const addToWishList = async (e) => {
+    const response = await fetch(`http://localhost:5050/usergames/${e}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      console.error(message);
+      return;
+    } else {
+      toast.dark(`game added to WishList`);
+    }
+  };
 
   //add text center etc.
   const boxStyle =
@@ -52,7 +71,14 @@ export default function Gamesgrid() {
                 </div>
 
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Add to list</button>
+                  <button
+                    onClick={() => {
+                      addToWishList(item._id);
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Add to wishList
+                  </button>
                 </div>
               </div>
             </div>

@@ -34,7 +34,7 @@ export default function SignUp() {
 
     //error handling and send to login page if correct
     if (!response.ok) {
-      alert(data.err);
+      toast.dark(data.err);
     } else {
       toast.dark("account created");
       navigate("/login");

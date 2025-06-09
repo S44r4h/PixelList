@@ -41,11 +41,14 @@ router.post("/", async (req, res) => {
           }
         );
       } else {
-        res.status(401).json("this password is incorrect");
+        res.status(401).json({ message: "This password is incorrect" });
       }
+    } else {
+      res.status(401).json({ message: "This email is incorrect" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.log("joku error");
   }
 });
 
@@ -54,27 +57,13 @@ router.get("/profile", (req, res) => {
   if (token) {
     jwt.verify(token, sectret, {}, (err, user) => {
       //tarkistaa annetun token(user.name & id) ja sectret
-      if (err) throw err;
-      res.json(user);
+      if (err) return res.status(401).json({ message: "Invalid token" });
     });
   } else {
     res.json(null);
   }
 });
 
-//router.get("/dashboard", async (req, res) => {
-//  if (req.session.userId) {
-//    const user = await RegisterModel.findOne({ _id: req.session.userId})
-//    //res.status(200).json({ message: `Welcome`});
-//    res.send(user).status(200);
-//  } else {
-//    //res.status(401).json({ message: "Unauthorized, please login" });
-//    res.send('EERRROR');
-//  }
-//
-//});
-//
-//
 router.post("/logout", async (req, res) => {
   res.cookie("token", "").json("ok");
 });
