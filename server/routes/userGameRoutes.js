@@ -61,18 +61,20 @@ router.post("/:id", async (req, res) => {
     let result = await UserGameModel.findOne({ user: decoded.id });
 
     if (!result) {
-      await UserGameModel.create({
+      const addedGame = await UserGameModel.create({
         user: decoded.id,
         wishList: [gameID],
       });
+      return res.status(201).json(addedGame);
     }
     if (result.wishList.includes(gameID._id)) {
-      return res.status(500).json({ message: "game already in list" });
-    } else {
-      result.wishList.push(gameID);
-      console.log(`${result.wishList.includes(gameID._id)}`);
-      await result.save();
+      return res.status(500).json({ message: "game already Wishlist in list" });
     }
+
+    result.wishList.push(gameID);
+    console.log(`${result.wishList.includes(gameID._id)}`);
+    await result.save();
+    return res.status(200).json(result);
   } catch (error) {
     console.error("Wishlist error:", error.message);
 

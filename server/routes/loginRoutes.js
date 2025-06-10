@@ -58,6 +58,7 @@ router.get("/profile", (req, res) => {
     jwt.verify(token, sectret, {}, (err, user) => {
       //tarkistaa annetun token(user.name & id) ja sectret
       if (err) return res.status(401).json({ message: "Invalid token" });
+      return res.json(user);
     });
   } else {
     res.json(null);

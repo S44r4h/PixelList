@@ -22,8 +22,8 @@ export default function Gamesgrid() {
     return;
   }, [games.length]);
 
-  /* ADD SELECTED GAME TO WISHLIST */
-  const addToWishList = async (e) => {
+  /* ADD SELECTED GAME TO LIST */
+  const addToList = async (e, listtype) => {
     const response = await fetch(`http://localhost:5050/usergames/${e}`, {
       method: "POST",
       headers: {
@@ -32,9 +32,10 @@ export default function Gamesgrid() {
       credentials: "include",
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const message = `An error occurred: ${response.statusText}`;
-      console.error(message);
+      toast.dark(data.message);
       return;
     } else {
       toast.dark(`game added to WishList`);
@@ -71,14 +72,25 @@ export default function Gamesgrid() {
                 </div>
 
                 <div className="card-actions justify-end">
-                  <button
-                    onClick={() => {
-                      addToWishList(item._id);
-                    }}
-                    className="btn btn-primary"
-                  >
-                    Add to wishList
-                  </button>
+                  <details className="dropdown">
+                    <summary className="btn btn-primary m-1">
+                      Add to list
+                    </summary>
+                    <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                      <li>
+                        <a
+                          onClick={() => {
+                            addToList(item._id);
+                          }}
+                        >
+                          wishlist
+                        </a>
+                      </li>
+                      <li>
+                        <a>played</a>
+                      </li>
+                    </ul>
+                  </details>
                 </div>
               </div>
             </div>
