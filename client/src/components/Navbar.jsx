@@ -60,6 +60,9 @@ export default function Navbar() {
             <li>
               <NavLink>Explore games</NavLink>
             </li>
+            <li>
+              <NavLink>My game lists</NavLink>
+            </li>
             {user && user.role === "admin" && (
               <li>
                 <NavLink to="/adminpanel">Add games to site</NavLink>

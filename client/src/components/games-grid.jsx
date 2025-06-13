@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 export default function Gamesgrid() {
   /* Add games to browser */
   const [games, setGames] = useState([]);
-
   // This method fetches the records from the database.
   useEffect(() => {
     async function getGames() {
@@ -22,8 +21,8 @@ export default function Gamesgrid() {
     return;
   }, [games.length]);
 
-  /* ADD SELECTED GAME TO LIST */
-  const addToList = async (e, listtype) => {
+  /* ADD SELECTED GAME TO WISHLIST */
+  const addToWishList = async (e) => {
     const response = await fetch(`http://localhost:5050/usergames/${e}`, {
       method: "POST",
       headers: {
@@ -31,6 +30,29 @@ export default function Gamesgrid() {
       },
       credentials: "include",
     });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      toast.dark(data.message);
+      return;
+    } else {
+      toast.dark(`game added to WishList`);
+    }
+  };
+
+  /* ADD SELECTED GAME TO WISHLIST */
+  const addToPlayedList = async (e) => {
+    const response = await fetch(
+      `http://localhost:5050/usergames/addplayed/${e}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
 
     const data = await response.json();
 
@@ -80,14 +102,20 @@ export default function Gamesgrid() {
                       <li>
                         <a
                           onClick={() => {
-                            addToList(item._id);
+                            addToWishList(item._id);
                           }}
                         >
                           wishlist
                         </a>
                       </li>
                       <li>
-                        <a>played</a>
+                        <a
+                          onClick={() => {
+                            addToPlayedList(item._id);
+                          }}
+                        >
+                          played
+                        </a>
                       </li>
                     </ul>
                   </details>

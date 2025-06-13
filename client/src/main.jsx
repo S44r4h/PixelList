@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import GameAdminPanel from "./components/GameAdminPanel";
 import { GameContextProvider } from "./context/GameContext";
 import AdminRoutes from "./components/AdminRoutes";
+import UserGameList from "./components/UsergameList";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -102,6 +103,20 @@ const router = createBrowserRouter([
               <GameAdminPanel />
             </GameContextProvider>
           </AdminRoutes>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/usergamelist",
+    element: <App />,
+    children: [
+      {
+        path: "/usergamelist",
+        element: (
+          <ProtectedRoute>
+            <UserGameList />
+          </ProtectedRoute>
         ),
       },
     ],

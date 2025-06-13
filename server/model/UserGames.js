@@ -9,6 +9,11 @@ const userGamesSchema = new Schema({
   },
   wishList: {
     type: [mongoose.Types.ObjectId],
+    ref: "Game",
+  },
+  playedList: {
+    type: [mongoose.Types.ObjectId],
+    ref: "Game",
   },
 });
 
