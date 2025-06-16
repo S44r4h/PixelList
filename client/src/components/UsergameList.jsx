@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GameListSection from "./GamesListSection";
+import { UseGamesContext } from "../hooks/useGamesContext";
+import { toast } from "react-toastify";
 
 export default function UserGameList() {
-  const [gameList, setgameList] = useState([]);
+  const { games, dispatch } = UseGamesContext();
 
   /* GET ALL GAME-LISTS */
   useEffect(() => {
@@ -15,14 +17,13 @@ export default function UserGameList() {
         console.error(message);
         return;
       }
-      const data = await response.json();
-      setgameList(data);
+      const json = await response.json();
+      console.log(json);
+      dispatch({ type: "SET_GAMES", payload: json });
     }
     getWishList();
     return;
-  }, [gameList.length]);
-
-  console.log(gameList);
+  }, []);
 
   /* DELETE METHOD WISHLIST & PLAYEDLIST*/
   const handleDelete = async (id, list) => {
@@ -37,25 +38,29 @@ export default function UserGameList() {
     const json = await response.json();
 
     if (response.ok) {
-      //dispatch({ type: "DELETE_GAME", payload: json });
-      console.log("nyt poistuu " + id);
+      dispatch({ type: `DELETE_FROM_${list}`, payload: json });
+      toast.dark("game deleted");
     }
   };
 
   return (
     <div>
-      <GameListSection
-        title="Wishlist"
-        listName="wishList"
-        games={gameList.wishList}
-        onDelete={handleDelete}
-      />
-      <GameListSection
-        title="PlayedList"
-        listName="playedList"
-        games={gameList.playedList}
-        onDelete={handleDelete}
-      />
+      {games && (
+        <GameListSection
+          title="Wishlist"
+          listName="wishList"
+          games={games.wishList}
+          onDelete={handleDelete}
+        />
+      )}
+      {games && (
+        <GameListSection
+          title="PlayedList"
+          listName="playedList"
+          games={games.playedList}
+          onDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }

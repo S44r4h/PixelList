@@ -6,7 +6,6 @@ const ProtectedRoutes = ({ children }) => {
   const { user, loading } = useContext(UserContext);
   if (loading) return <div>Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  //if (user.admin === true) return console.log(`${user.name} on admin!!`);
   return children ? children : <Outlet />;
 };
 

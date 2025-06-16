@@ -24,6 +24,8 @@ export default function GameList() {
         return;
       }
       const json = await response.json();
+      console.log(typeof json);
+      console.log(json);
       dispatch({ type: "SET_GAMES", payload: json });
     }
     getRecords();
@@ -35,7 +37,7 @@ export default function GameList() {
       method: "DELETE",
     });
     const json = await response.json();
-
+    console.log(json);
     if (response.ok) {
       dispatch({ type: "DELETE_GAME", payload: json });
       toast.dark("game deleted");

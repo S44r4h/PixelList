@@ -115,7 +115,9 @@ const router = createBrowserRouter([
         path: "/usergamelist",
         element: (
           <ProtectedRoute>
-            <UserGameList />
+            <GameContextProvider>
+              <UserGameList />
+            </GameContextProvider>
           </ProtectedRoute>
         ),
       },

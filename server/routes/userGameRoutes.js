@@ -23,14 +23,19 @@ router.get("/", async (req, res) => {
   const games = await UserGameModel.findOne({ user: decoded.id })
     .populate(["wishList", "playedList"])
     .exec();
-  // prints "The author is Ian Fleming"
-  games.wishList.forEach(function (title) {
-    console.log(title);
-  });
-  res
-    .send({ wishList: games.wishList, playedList: games.playedList })
-    .status(200);
-  return;
+
+  /* IF user dont have lists adds them */
+  if (!games) {
+    games = await UserGameModel.create({
+      user: decoded.id,
+      wishList: [],
+      playedList: [],
+    });
+  }
+
+  return res
+    .status(200)
+    .send({ wishList: games.wishList, playedList: games.playedList });
 });
 
 /* WISHLIST */
@@ -56,7 +61,6 @@ router.post("/:id", async (req, res) => {
     }
 
     result.wishList.push(gameID);
-    console.log(`${result.wishList.includes(gameID._id)}`);
     await result.save();
     return res.status(200).json(result);
   } catch (error) {
@@ -70,7 +74,6 @@ router.post("/:id", async (req, res) => {
 
 router.post("/addplayed/:id", async (req, res) => {
   try {
-    console.log(req.params);
     let gameID = { _id: new ObjectId(req.params.id) };
     const { token } = req.cookies;
     if (!token) {
@@ -91,7 +94,6 @@ router.post("/addplayed/:id", async (req, res) => {
     }
 
     result.playedList.push(gameID);
-    console.log(`${result.playedList.includes(gameID._id)}`);
     await result.save();
     return res.status(200).json(result);
   } catch (error) {
@@ -112,12 +114,14 @@ router.delete("/:list/:id", async (req, res) => {
     }
     const decodedUser = jwt.verify(token, sectret);
     let result = await UserGameModel.findOne({ user: decodedUser.id });
+    console.log(result[list]);
     if (result[list].includes(deleteCriteria._id)) {
+      const removedId = deleteCriteria._id;
       result[list] = result[list].filter(
         (id) => id.toString() !== deleteCriteria._id.toString()
       );
       await result.save();
-      return res.status(201).json(result);
+      return res.status(201).json(removedId);
     }
   } catch (err) {
     console.error(err);

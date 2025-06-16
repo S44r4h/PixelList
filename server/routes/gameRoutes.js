@@ -1,6 +1,6 @@
 import express from "express";
 import gamesModel from "../model/Game.js";
-
+import UserGameModel from "../model/UserGames.js";
 const router = express.Router();
 
 // This help convert the id from string to ObjectId for the _id.
@@ -21,7 +21,6 @@ router.post("/", async (req, res) => {
       genre: newDocument.genre,
     });
     res.status(201).json(result);
-    console.log(result._id);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error adding record");
@@ -46,8 +45,13 @@ router.get("/:id", async (req, res) => {
 // delete game
 router.delete("/:id", async (req, res) => {
   try {
-    const deleteCriteria = { _id: new ObjectId(req.params.id) };
+    const deleteCriteria = new ObjectId(req.params.id);
     let result = await gamesModel.findOneAndDelete(deleteCriteria);
+    /* THIS DELETES GAME FROM ALL USER LIST */
+    await UserGameModel.updateMany(
+      {},
+      { $pull: { wishList: deleteCriteria, playedList: deleteCriteria } }
+    );
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
