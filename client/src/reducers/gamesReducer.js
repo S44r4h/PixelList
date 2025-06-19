@@ -27,13 +27,44 @@ export const gamesReducer = (state, action) => {
           ),
         },
       };
-    case `DELETE_FROM_playedList`: {
+    case `DELETE_FROM_playedList`:
       return {
         games: {
           ...state.games,
           playedList: state.games.playedList.filter(
             (game) => game._id !== action.payload
           ),
+        },
+      };
+
+    case "SWITCH_FROM_wishList": {
+      const movedGame = state.games.wishList.find(
+        (game) => game._id === action.payload
+      );
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          wishList: state.games.wishList.filter(
+            (game) => game._id !== action.payload
+          ),
+          playedList: [...state.games.playedList, movedGame],
+        },
+      };
+    }
+
+    case "SWITCH_FROM_playedList": {
+      const movedGame = state.games.playedList.find(
+        (game) => game._id === action.payload
+      );
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          playedList: state.games.playedList.filter(
+            (game) => game._id !== action.payload
+          ),
+          wishList: [...state.games.wishList, movedGame],
         },
       };
     }

@@ -14,6 +14,7 @@ import GameAdminPanel from "./components/GameAdminPanel";
 import { GameContextProvider } from "./context/GameContext";
 import AdminRoutes from "./components/AdminRoutes";
 import UserGameList from "./components/UsergameList";
+import UserManagement from "./components/UserManagement";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -101,6 +102,22 @@ const router = createBrowserRouter([
           <AdminRoutes>
             <GameContextProvider>
               <GameAdminPanel />
+            </GameContextProvider>
+          </AdminRoutes>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/UserManagement",
+    element: <App />,
+    children: [
+      {
+        path: "/UserManagement",
+        element: (
+          <AdminRoutes>
+            <GameContextProvider>
+              <UserManagement />
             </GameContextProvider>
           </AdminRoutes>
         ),

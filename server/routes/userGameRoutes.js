@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   }
   const decoded = jwt.verify(token, sectret);
 
-  const games = await UserGameModel.findOne({ user: decoded.id })
+  let games = await UserGameModel.findOne({ user: decoded.id })
     .populate(["wishList", "playedList"])
     .exec();
 
@@ -122,6 +122,57 @@ router.delete("/:list/:id", async (req, res) => {
       );
       await result.save();
       return res.status(201).json(removedId);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error deleting record");
+  }
+});
+
+/* SWITCH LISTS */
+
+router.patch("/:list/:id", async (req, res) => {
+  try {
+    const updateCriteria = { _id: new ObjectId(req.params.id) };
+    const list = req.params.list;
+    const { token } = req.cookies;
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    const decodedUser = jwt.verify(token, sectret);
+    let result = await UserGameModel.findOne({ user: decodedUser.id });
+
+    if (list === "wishList") {
+      if (result["playedList"].includes(updateCriteria._id)) {
+        console.log("Peli on jo playedList");
+        return res.status(409).json(result);
+      }
+
+      result[list] = result[list].filter(
+        (id) => id.toString() !== updateCriteria._id.toString()
+      );
+      result.playedList.push(updateCriteria._id);
+      await result.save();
+      console.log(
+        `delete from ${list} and added ${updateCriteria._id} to playedList`
+      );
+      return res.status(200).json(updateCriteria._id);
+    }
+
+    if (list === "playedList") {
+      if (result["wishList"].includes(updateCriteria._id)) {
+        console.log("Peli on jo wishList");
+        return res.status(409).json(result);
+      }
+      result[list] = result[list].filter(
+        (id) => id.toString() !== updateCriteria._id.toString()
+      );
+      result.wishList.push(updateCriteria._id);
+      await result.save();
+      console.log(
+        `delete from ${list} and added ${updateCriteria._id} to wishLIST`
+      );
+      return res.status(200).json(updateCriteria._id);
     }
   } catch (err) {
     console.error(err);

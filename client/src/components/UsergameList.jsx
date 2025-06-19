@@ -27,7 +27,6 @@ export default function UserGameList() {
 
   /* DELETE METHOD WISHLIST & PLAYEDLIST*/
   const handleDelete = async (id, list) => {
-    console.log(list);
     const response = await fetch(
       `http://localhost:5050/usergames/${list}/${id}`,
       {
@@ -43,6 +42,24 @@ export default function UserGameList() {
     }
   };
 
+  const handleEdit = async (id, list) => {
+    console.log(`tämä on ${id} ja lista on: ${list}`);
+    const response = await fetch(
+      `http://localhost:5050/usergames/${list}/${id}`,
+      {
+        method: "PATCH",
+        credentials: "include",
+      }
+    );
+    const json = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: `SWITCH_FROM_${list}`, payload: json });
+      toast.dark(`game switched from ${list}`);
+      console.log(json);
+    }
+  };
+
   return (
     <div>
       {games && (
@@ -51,6 +68,7 @@ export default function UserGameList() {
           listName="wishList"
           games={games.wishList}
           onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       )}
       {games && (
@@ -59,6 +77,7 @@ export default function UserGameList() {
           listName="playedList"
           games={games.playedList}
           onDelete={handleDelete}
+          onEdit={handleEdit}
         />
       )}
     </div>

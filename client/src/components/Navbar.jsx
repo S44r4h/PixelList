@@ -46,6 +46,14 @@ export default function Navbar() {
               <li>
                 <NavLink>Explore games</NavLink>
               </li>
+              <li>
+                <NavLink to="/usergamelist">My game lists</NavLink>
+              </li>
+              {user && user.role === "admin" && (
+                <li>
+                  <NavLink to="/adminpanel">Add games to site</NavLink>
+                </li>
+              )}
             </ul>
           </div>
           <NavLink to="/" className="text-xl">
@@ -61,7 +69,7 @@ export default function Navbar() {
               <NavLink>Explore games</NavLink>
             </li>
             <li>
-              <NavLink>My game lists</NavLink>
+              <NavLink to="/usergamelist">My game lists</NavLink>
             </li>
             {user && user.role === "admin" && (
               <li>

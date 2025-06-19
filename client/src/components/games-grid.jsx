@@ -41,7 +41,7 @@ export default function Gamesgrid() {
     }
   };
 
-  /* ADD SELECTED GAME TO WISHLIST */
+  /* ADD SELECTED GAME TO playedList */
   const addToPlayedList = async (e) => {
     const response = await fetch(
       `http://localhost:5050/usergames/addplayed/${e}`,
@@ -60,7 +60,7 @@ export default function Gamesgrid() {
       toast.dark(data.message);
       return;
     } else {
-      toast.dark(`game added to WishList`);
+      toast.dark(`game added to PlayedList`);
     }
   };
 
