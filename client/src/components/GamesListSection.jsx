@@ -31,7 +31,9 @@ export default function GameListSection({
                 </div>
                 <div className="font-semobold flex flex-wrap gap-1">
                   {item.genre.map((g, i) => (
-                    <p key={i}>{g.label}</p>
+                    <div className="badge badge-soft badge-primary" key={i}>
+                      {g.label}
+                    </div>
                   ))}
                 </div>
               </div>

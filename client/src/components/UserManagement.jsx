@@ -1,6 +1,108 @@
 import GameListSection from "./GamesListSection";
 import { UseGamesContext } from "../hooks/useGamesContext";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function UserManagement() {
-  return <h1>Jihaa</h1>;
+  const { games, dispatch } = UseGamesContext();
+
+  useEffect(() => {
+    async function getRecords() {
+      const response = await fetch(`http://localhost:5050/usermanagement`, {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        console.error(message);
+        return;
+      }
+      const json = await response.json();
+      dispatch({ type: "SET_GAMES", payload: json });
+    }
+    getRecords();
+    return;
+  }, []);
+
+  /* DELETE USER */
+
+  const deleteUser = async (id) => {
+    const response = await fetch(`http://localhost:5050/usermanagement/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      console.log(json);
+      dispatch({ type: "DELETE_GAME", payload: json });
+      toast.dark("user deleted");
+    }
+  };
+
+  /* Change role */
+
+  const changeRole = async (id) => {
+    console.log("tämän rooli vaihtuu " + id);
+  };
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="table table-zebra">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          {games &&
+            games.map((g, i) => {
+              return (
+                <tr key={i}>
+                  <th>{g._id}</th>
+                  <td>{g.name}</td>
+                  <td>{g.email}</td>
+
+                  {g.role === "user" ? (
+                    <>
+                      <td className="bg-primary text-primary-content">
+                        {g.role}
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="bg-secondary text-primary-content ">
+                        {g.role}
+                      </td>
+                    </>
+                  )}
+                  <td>
+                    <button
+                      className=" btn btn-error"
+                      onClick={() => deleteUser(g._id)}
+                    >
+                      DELETE
+                    </button>
+                  </td>
+                  <td>
+                    <label class="flex items-center gap-2">
+                      <span class="text-sm">User</span>
+                      <input
+                        type="checkbox"
+                        class="toggle toggle-primary"
+                        checked={g.role === "admin"}
+                        onClick={() => changeRole(g._id)}
+                      />
+                      <span class="text-sm">Admin</span>
+                    </label>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </div>
+  );
 }

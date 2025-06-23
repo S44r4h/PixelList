@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";
 import userGameRoutes from "./routes/userGameRoutes.js";
+import UserManagement from "./routes/userManagementRoutes.js";
 import cookieParser from "cookie-parser";
 //import profileRoutes from './routes/profileRoutes.js'
 
@@ -27,7 +28,7 @@ app.use("/user", userRoutes); // esim. userRoutes-reitit alkavat polusta /user.
 app.use("/signinuser", loginRoutes);
 app.use("/editgames", gameRoutes);
 app.use("/usergames", userGameRoutes);
-
+app.use("/usermanagement", UserManagement);
 //vain kirjautuneille käyttäjille
 //app.use('/profile', profileRoutes);
 

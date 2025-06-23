@@ -109,11 +109,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/UserManagement",
+    path: "/usermanagement",
     element: <App />,
     children: [
       {
-        path: "/UserManagement",
+        path: "/usermanagement",
         element: (
           <AdminRoutes>
             <GameContextProvider>

@@ -87,7 +87,7 @@ export default function Gamesgrid() {
                 <h2 className="card-title"> {item.title}</h2>
                 <div className="flex flex-wrap gap-1">
                   {item.platform.map((platform, i) => (
-                    <div key={i} className="badge badge-outline">
+                    <div key={i} className="badge badge-soft badge-primary">
                       {platform}
                     </div>
                   ))}
