@@ -22,6 +22,6 @@ const RegisterSchema = new Schema({
   },
 });
 
-const RegisterModel = mongoose.model("UsersTest", RegisterSchema);
+const RegisterModel = mongoose.model("User", RegisterSchema);
 
 export default RegisterModel;

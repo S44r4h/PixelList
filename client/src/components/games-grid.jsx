@@ -75,7 +75,7 @@ export default function Gamesgrid() {
         {[...games]
           .reverse()
           .slice(0, 4)
-          .map((item, i) => (
+          .map((item) => (
             <div className="card bg-base-100 shadow-sm">
               <figure>
                 <img

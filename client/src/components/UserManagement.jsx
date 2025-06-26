@@ -42,7 +42,16 @@ export default function UserManagement() {
   /* Change role */
 
   const changeRole = async (id) => {
-    console.log("tämän rooli vaihtuu " + id);
+    const response = await fetch(`http://localhost:5050/usermanagement/${id}`, {
+      method: "PATCH",
+      credentials: "include",
+    });
+
+    const json = await response.json();
+    if (response.ok) {
+      console.log(json);
+      dispatch({ type: "UPDATE_GAME", payload: json });
+    }
   };
 
   return (
@@ -87,15 +96,15 @@ export default function UserManagement() {
                     </button>
                   </td>
                   <td>
-                    <label class="flex items-center gap-2">
-                      <span class="text-sm">User</span>
+                    <label className="flex items-center gap-2">
+                      <span className="text-sm">User</span>
                       <input
                         type="checkbox"
-                        class="toggle toggle-primary"
+                        className="toggle toggle-primary"
                         checked={g.role === "admin"}
-                        onClick={() => changeRole(g._id)}
+                        onChange={() => changeRole(g._id)}
                       />
-                      <span class="text-sm">Admin</span>
+                      <span className="text-sm">Admin</span>
                     </label>
                   </td>
                 </tr>
