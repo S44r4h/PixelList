@@ -66,7 +66,7 @@ export default function GameList() {
             <div>
               <div>{item.title}</div>
               <div className="text-xs uppercase font-semibold opacity-60">
-                {item.platform.join(",")}
+                {item.platform && item.platform.join(",")}
               </div>
             </div>
             <button

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 export default function UserManagement() {
   const { games, dispatch } = UseGamesContext();
 
+  /* GET USERS */
   useEffect(() => {
     async function getRecords() {
       const response = await fetch(`http://localhost:5050/usermanagement`, {
@@ -63,6 +64,8 @@ export default function UserManagement() {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>delete user</th>
+            <th>switch role</th>
           </tr>
         </thead>
         <tbody>

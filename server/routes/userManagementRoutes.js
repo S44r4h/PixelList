@@ -18,8 +18,9 @@ router.get("/", async (req, res) => {
     }
 
     const decoded = jwt.verify(token, sectret);
-
-    let results = await RegisterModel.find({});
+    let results = await RegisterModel.find({
+      _id: { $ne: decoded.id },
+    }); /* filters logged user from list $ne - not equal */
     return res.status(200).send(results);
   } catch (err) {
     console.error("Error:", err);
@@ -73,7 +74,6 @@ router.patch("/:id", async (req, res) => {
           { $set: { role: "user" } },
           { new: true }
         );
-        console.log(`käyttjä on: ${updateCriteria.role}`);
         return res.status(201).json({
           _id: result._id,
           name: result.name,
