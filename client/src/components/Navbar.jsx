@@ -40,10 +40,7 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <NavLink>About</NavLink>
-              </li>
-              <li>
-                <NavLink>Explore games</NavLink>
+                <NavLink to="/exploregames">Explore games</NavLink>
               </li>
               <li>
                 <NavLink to="/usergamelist">My game lists</NavLink>
@@ -55,17 +52,14 @@ export default function Navbar() {
               )}
             </ul>
           </div>
-          <NavLink to="/" className="text-xl">
+          <NavLink to="/dashboard" className="text-xl">
             PixelList
           </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <NavLink>About</NavLink>
-            </li>
-            <li>
-              <NavLink>Explore games</NavLink>
+              <NavLink to="/exploregames">Explore games</NavLink>
             </li>
             <li>
               <NavLink to="/usergamelist">My game lists</NavLink>

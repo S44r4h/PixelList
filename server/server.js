@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
-import records from "./routes/record.js";
-import testRoutes from "./routes/dbTest.js"; // Tuo uusi testireititin
 import userRoutes from "./routes/userRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";
 import userGameRoutes from "./routes/userGameRoutes.js";
 import UserManagement from "./routes/userManagementRoutes.js";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 //import profileRoutes from './routes/profileRoutes.js'
 
 const PORT = process.env.PORT || 5050;
@@ -21,9 +21,15 @@ app.use(
   })
 );
 
+/* TÄÄ POIS? */
+app.get("/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.use(express.json());
-app.use("/record", records);
-app.use("/test", testRoutes);
 app.use("/user", userRoutes); // esim. userRoutes-reitit alkavat polusta /user.
 app.use("/signinuser", loginRoutes);
 app.use("/editgames", gameRoutes);

@@ -15,6 +15,7 @@ import { GameContextProvider } from "./context/GameContext";
 import AdminRoutes from "./components/AdminRoutes";
 import UserGameList from "./components/UsergameList";
 import UserManagement from "./components/UserManagement";
+import ExploreGames from "./components/ExploreGames";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -135,6 +136,20 @@ const router = createBrowserRouter([
             <GameContextProvider>
               <UserGameList />
             </GameContextProvider>
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/exploregames",
+    element: <App />,
+    children: [
+      {
+        path: "/exploregames",
+        element: (
+          <ProtectedRoute>
+            <ExploreGames />
           </ProtectedRoute>
         ),
       },

@@ -3,8 +3,38 @@ import bcrypt from "bcrypt";
 import RegisterModel from "../model/Register.js";
 const router = express.Router();
 
+/**
+ * @openapi
+ * /user:
+ *   post:
+ *     summary: Create new user
+ *     tags: [user]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User created
+ *       400:
+ *         description: email or name is taken
+ */
+
 /* Register */
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res) => {
   const { name, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10); // hashaa salasanan 2^10 =1024. mitä isompi, sitä kauemmin kestää ajaa funktio -> 12 & 14 super turvallinen
   //   //12 tai 14 pitäisi olla superturvalline, 10 OK

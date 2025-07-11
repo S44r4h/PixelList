@@ -8,6 +8,33 @@ import { ObjectId } from "mongodb";
 
 //CREATE
 
+/**
+ * @openapi
+ * /games:
+ *   post:
+ *     summary: Create a new game
+ *     tags: [Games]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [title, platform, genre]
+ *             properties:
+ *               title:
+ *                 type: string
+ *               platform:
+ *                 type: string
+ *               genre:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Game created successfully
+ *       500:
+ *         description: Server error
+ */
+
 router.post("/", async (req, res) => {
   try {
     let newDocument = {
@@ -29,20 +56,115 @@ router.post("/", async (req, res) => {
 
 // READ
 
+/**
+ * @openapi
+ * /games:
+ *   get:
+ *     summary: Get all games
+ *     tags: [Games]
+ *     responses:
+ *       200:
+ *         description: List of games
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       500:
+ *         description: Server error
+ */
+
 router.get("/", async (req, res) => {
   let results = await gamesModel.find({});
   res.send(results).status(200);
 });
 
-//This section will help you get a single record by id
+/* READ SINGLE GAME */
+
+/**
+ * @openapi
+ * /games/{id}:
+ *   get:
+ *     summary: Get a game by ID
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the game to retrieve
+ *     responses:
+ *       200:
+ *         description: Game found and returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 title:
+ *                   type: string
+ *                 platform:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                 genre:
+ *                   type: object
+ *                   properties:
+ *                     main:
+ *                       type: string
+ *
+ *       404:
+ *         description: Game not found
+ *       500:
+ *         description: Server error
+ */
+
 router.get("/:id", async (req, res) => {
   let query = { _id: new ObjectId(req.params.id) };
   let result = await gamesModel.findOne(query);
-  if (!result) res.send("Not found").status(404);
-  else res.status(201).json(result);
+  if (!result) res.status(404).send("Not found");
+  else res.status(200).json(result);
 });
 
-// delete game
+/* DELETE GAME */
+
+/**
+ * @openapi
+ * /games/{id}:
+ *   delete:
+ *     summary: Delete a game by ID
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the game to delete
+ *     responses:
+ *       200:
+ *         description: Game successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 title:
+ *                   type: string
+ *                 platform:
+ *                   type: string
+ *                 genre:
+ *                   type: string
+ *       500:
+ *         description: Server error while deleting game
+ */
+
 router.delete("/:id", async (req, res) => {
   try {
     const deleteCriteria = new ObjectId(req.params.id);
@@ -52,14 +174,49 @@ router.delete("/:id", async (req, res) => {
       {},
       { $pull: { wishList: deleteCriteria, playedList: deleteCriteria } }
     );
-    res.status(201).json(result);
+    res.status(200).json(result);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error deleting record");
   }
 });
 
-// Edit game
+/* EDIT GAME */
+
+/**
+ * @openapi
+ * /games/{id}:
+ *   patch:
+ *     summary: Update a game by ID
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               platform:
+ *                 type: string
+ *               genre:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Game updated successfully
+ *       404:
+ *         description: Game not found
+ *       500:
+ *         description: Error updating game
+ */
+
 router.patch("/:id", async (req, res) => {
   try {
     const updateCriteria = { _id: new ObjectId(req.params.id) };

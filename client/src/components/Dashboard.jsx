@@ -5,7 +5,7 @@ export default function DashBoard() {
   return (
     <div>
       <HerodashBoard />
-      <Gamesgrid />
+      <Gamesgrid title={"Recently added"} showAllGames={false} />
     </div>
   );
 }

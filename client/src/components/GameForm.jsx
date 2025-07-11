@@ -82,7 +82,7 @@ export default function GameForm() {
     <div>
       <form className="h-100 grid place-items-center" onSubmit={handleSubmit}>
         {/* Form component */}
-        <fieldset className="fieldset w-full max-w-md bg-base-200 border border-base-300 p-6 rounded-box">
+        <fieldset className="fieldset w-full max-w-md bg-base-300 border border-base-300 p-6 rounded-box">
           <legend className="fieldset-legend">Add games</legend>
 
           <label className="fieldset-label">Name</label>
@@ -92,6 +92,7 @@ export default function GameForm() {
             className="input w-full"
             placeholder="title"
             required="required"
+            maxlength="20"
             value={Gameform.title}
             onChange={(e) =>
               SetGameform({ ...Gameform, title: e.target.value })

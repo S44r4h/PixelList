@@ -2,7 +2,7 @@ import { content } from "../data/frontPageGrid.js";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function Gamesgrid() {
+export default function Gamesgrid({ title, showAllGames }) {
   /* Add games to browser */
   const [games, setGames] = useState([]);
   // This method fetches the records from the database.
@@ -64,19 +64,18 @@ export default function Gamesgrid() {
     }
   };
 
-  //add text center etc.
-  const boxStyle =
-    "rounded-box h-80 p-10   flex flex-col items-start bg-base-200  border-base-300 ";
+  let gamesSize = showAllGames ? games.length : 4;
 
   return (
     <div className="pt-20">
-      <h1 className="text-3xl p-2">Recently added</h1>
+      <h1 className="text-3xl p-2">{title}</h1>
+      <div className="divider divider-primary"></div>
       <div className="grid md:grid-cols-4 grid-rows-2 gap-3">
         {[...games]
           .reverse()
-          .slice(0, 4)
+          .slice(0, gamesSize)
           .map((item) => (
-            <div className="card bg-base-100 shadow-sm">
+            <div className="card bg-base-300 shadow-sm">
               <figure>
                 <img
                   src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -123,16 +122,6 @@ export default function Gamesgrid() {
               </div>
             </div>
           ))}
-      </div>
-
-      <h1 className="text-3xl p-2">Coming Soon</h1>
-      <div className="grid md:grid-cols-4 grid-rows-1 gap-4">
-        {content.map((item, i) => (
-          <div key={i} className={`${boxStyle} bg-[url(${item.imageUrl})]`}>
-            <h2 className="text-3xl font-bold pb-2">{item.title}</h2>
-            <p className="text-lg">{item.text}</p>
-          </div>
-        ))}
       </div>
     </div>
   );
