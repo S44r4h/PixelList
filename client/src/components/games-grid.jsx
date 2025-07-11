@@ -23,13 +23,16 @@ export default function Gamesgrid({ title, showAllGames }) {
 
   /* ADD SELECTED GAME TO WISHLIST */
   const addToWishList = async (e) => {
-    const response = await fetch(`http://localhost:5050/usergames/${e}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+    const response = await fetch(
+      `http://localhost:5050/usergames/addwishlist/${e}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
 
     const data = await response.json();
 
