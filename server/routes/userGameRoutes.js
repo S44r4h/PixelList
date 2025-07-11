@@ -87,14 +87,14 @@ router.get("/", async (req, res) => {
 
 router.post("/addwishlist/:id", async (req, res) => {
   try {
-    let gameID = { _id: new ObjectId(req.params.id) };
+    const gameID = { _id: new ObjectId(req.params.id) };
     const { token } = req.cookies;
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
     const decoded = jwt.verify(token, sectret);
-    let result = await UserGameModel.findOne({ user: decoded.id });
+    const result = await UserGameModel.findOne({ user: decoded.id });
     if (!result) {
       const addedGame = await UserGameModel.create({
         user: decoded.id,
@@ -150,14 +150,14 @@ router.post("/addwishlist/:id", async (req, res) => {
 
 router.post("/addplayed/:id", async (req, res) => {
   try {
-    let gameID = { _id: new ObjectId(req.params.id) };
+    const gameID = { _id: new ObjectId(req.params.id) };
     const { token } = req.cookies;
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
     const decoded = jwt.verify(token, sectret);
-    let result = await UserGameModel.findOne({ user: decoded.id });
+    const result = await UserGameModel.findOne({ user: decoded.id });
     if (!result) {
       const addedGame = await UserGameModel.create({
         user: decoded.id,
@@ -243,7 +243,7 @@ router.delete("/:list/:id", async (req, res) => {
       return res.status(401).json({ message: "Not authenticated" });
     }
     const decodedUser = jwt.verify(token, sectret);
-    let result = await UserGameModel.findOne({ user: decodedUser.id });
+    const result = await UserGameModel.findOne({ user: decodedUser.id });
     console.log(result[list]);
     if (result[list].includes(deleteCriteria._id)) {
       const removedId = deleteCriteria._id;
@@ -325,7 +325,7 @@ router.patch("/:list/:id", async (req, res) => {
       return res.status(401).json({ message: "Not authenticated" });
     }
     const decodedUser = jwt.verify(token, sectret);
-    let result = await UserGameModel.findOne({ user: decodedUser.id });
+    const result = await UserGameModel.findOne({ user: decodedUser.id });
 
     if (list === "wishList") {
       if (result["playedList"].includes(updateCriteria._id)) {

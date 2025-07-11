@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
     }
 
     const decoded = jwt.verify(token, sectret);
-    let results = await RegisterModel.find({
+    const results = await RegisterModel.find({
       _id: { $ne: decoded.id },
     }); /* filters logged user from list $ne - not equal */
     return res.status(200).send(results);

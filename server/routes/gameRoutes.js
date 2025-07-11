@@ -37,7 +37,7 @@ import { ObjectId } from "mongodb";
 
 router.post("/", async (req, res) => {
   try {
-    let newDocument = {
+    const newDocument = {
       title: req.body.title,
       platform: req.body.platform,
       genre: req.body.genre,
@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
  */
 
 router.get("/", async (req, res) => {
-  let results = await gamesModel.find({});
+  const results = await gamesModel.find({});
   res.send(results).status(200);
 });
 
@@ -124,10 +124,10 @@ router.get("/", async (req, res) => {
  */
 
 router.get("/:id", async (req, res) => {
-  let query = { _id: new ObjectId(req.params.id) };
-  let result = await gamesModel.findOne(query);
-  if (!result) res.status(404).send("Not found");
-  else res.status(200).json(result);
+  const query = { _id: new ObjectId(req.params.id) };
+  const result = await gamesModel.findOne(query);
+  if (!result) {res.status(404).send("Not found");}
+  else {res.status(200).json(result);}
 });
 
 /* DELETE GAME */
@@ -168,7 +168,7 @@ router.get("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const deleteCriteria = new ObjectId(req.params.id);
-    let result = await gamesModel.findOneAndDelete(deleteCriteria);
+    const result = await gamesModel.findOneAndDelete(deleteCriteria);
     /* THIS DELETES GAME FROM ALL USER LIST */
     await UserGameModel.updateMany(
       {},
@@ -226,7 +226,7 @@ router.patch("/:id", async (req, res) => {
       genre: req.body.genre,
     };
 
-    let result = await gamesModel.findOneAndUpdate(updateCriteria, updates, {
+    const result = await gamesModel.findOneAndUpdate(updateCriteria, updates, {
       new: true,
     });
     res.status(201).json(result);
