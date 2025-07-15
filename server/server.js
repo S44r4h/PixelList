@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { db } from "./db/connection.js";
+import { db } from "./db/connection.js"; /* HUOM ÄLÄ POISTA yhdistää mongodb! */
 import userRoutes from "./routes/userRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";

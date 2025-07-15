@@ -1,11 +1,8 @@
-
-
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./config.env" }); // Määritä tiedoston nimi oikein
 
-dotenv.config(); // Lataa ympäristömuuttujat .env-tiedostosta
 console.log("ATLAS_URI:", process.env.ATLAS_URI);
 const uri = process.env.ATLAS_URI || "";
 
@@ -30,13 +27,5 @@ const db = mongoose.connection.useDb("employees");
 const dbTest = mongoose.connection.useDb("sample_guides");
 const Userdb = mongoose.connection.useDb("users");
 
-
-
-
-
-
-
-
 // Exportataan tietokannat ja mongoose-yhteys
 export { db, dbTest, Userdb, mongoose };
-

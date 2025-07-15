@@ -42,10 +42,10 @@ router.post("/", async (req, res) => {
     .then((user) => {
       if (user) {
         if (user.email === email) {
-          res.status(400).json({ err: "That email is already in use!" });
+          return res.status(400).json({ err: "That email is already in use!" });
         }
         if (user.name === name) {
-          res.status(400).json({ err: "That name is already in use!" });
+          return res.status(400).json({ err: "That name is already in use!" });
         }
       } else {
         RegisterModel.create({
@@ -53,9 +53,7 @@ router.post("/", async (req, res) => {
           email: email,
           password: hashedPassword,
           role: "user",
-        })
-          .then((result) => res.json("Account created"))
-          .catch((err) => res.json(err));
+        }).then(res.json("Account created"));
       }
     })
     .catch((err) => res.json(err));

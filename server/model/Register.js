@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model } = mongoose;
+const { Schema } = mongoose;
 
 const RegisterSchema = new Schema({
   name: {

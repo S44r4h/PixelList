@@ -92,7 +92,9 @@ router.post("/", async (req, res) => {
           sectret,
           {},
           (err, token) => {
-            if (err) {throw err;}
+            if (err) {
+              throw err;
+            }
             res
               .cookie("token", token, {
                 httpOnly: true,
@@ -104,10 +106,10 @@ router.post("/", async (req, res) => {
           }
         );
       } else {
-        res.status(401).json({ message: "This password is incorrect" });
+        return res.status(401).json({ message: "This password is incorrect" });
       }
     } else {
-      res.status(401).json({ message: "This email is incorrect" });
+      return res.status(401).json({ message: "This email is incorrect" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -147,7 +149,9 @@ router.get("/profile", (req, res) => {
   if (token) {
     jwt.verify(token, sectret, {}, (err, user) => {
       //tarkistaa annetun token(user.name & id) ja sectret
-      if (err) {return res.status(403).json({ message: "Invalid token" });}
+      if (err) {
+        return res.status(403).json({ message: "Invalid token" });
+      }
       return res.json(user);
     });
   } else {

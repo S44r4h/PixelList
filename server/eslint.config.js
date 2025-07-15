@@ -7,12 +7,12 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,jsx}"],
     plugins: { js },
     extends: ["js/recommended"],
+
     rules: {
       // 🔍 Virheiden ehkäisy
       "no-unused-vars": "warn",
       "no-undef": "error",
-      "no-console": "off", // voit laittaa "warn" jos haluat varoittaa console.logista
-
+      "no-console": "off",
       // 🎯 Koodin tyyli ja selkeys
       semi: ["error", "always"],
       quotes: ["error", "double"],

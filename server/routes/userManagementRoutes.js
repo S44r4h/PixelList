@@ -115,7 +115,7 @@ router.delete("/:id", async (req, res) => {
     const decoded = jwt.verify(token, sectret);
     if (decoded.role === "admin") {
       const result = await RegisterModel.findOneAndDelete(deleteCriteria);
-      const deleteFromuserGames = await UserGameModel.deleteOne({
+      await UserGameModel.deleteOne({
         user: deleteCriteria,
       });
       return res.status(201).json({ _id: result._id });

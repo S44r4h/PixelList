@@ -1,9 +1,8 @@
 import express from "express";
 import UserGameModel from "../model/UserGames.js";
-import gamesModel from "../model/Game.js";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser"; // purkaa cookie-headerin helposti luettavaan muotoon
-import mongoose from "mongoose";
+
 const router = express.Router();
 router.use(cookieParser());
 
