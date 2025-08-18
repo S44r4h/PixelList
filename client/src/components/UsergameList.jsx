@@ -57,6 +57,8 @@ export default function UserGameList() {
       dispatch({ type: `SWITCH_FROM_${list}`, payload: json });
       toast.dark(`game switched from ${list}`);
       console.log(json);
+    } else {
+      toast.dark(json.message);
     }
   };
 

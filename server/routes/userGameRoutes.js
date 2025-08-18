@@ -2,7 +2,7 @@ import express from "express";
 import UserGameModel from "../model/UserGames.js";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser"; // purkaa cookie-headerin helposti luettavaan muotoon
-
+import mongoose from "mongoose";
 const router = express.Router();
 router.use(cookieParser());
 
@@ -85,6 +85,10 @@ router.get("/", async (req, res) => {
  */
 
 router.post("/addwishlist/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: "Invalid game ID" });
+  }
+
   try {
     const gameID = { _id: new ObjectId(req.params.id) };
     const { token } = req.cookies;
@@ -92,7 +96,13 @@ router.post("/addwishlist/:id", async (req, res) => {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
-    const decoded = jwt.verify(token, sectret);
+    let decoded;
+    try {
+      decoded = jwt.verify(token, sectret);
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
     const result = await UserGameModel.findOne({ user: decoded.id });
     if (!result) {
       const addedGame = await UserGameModel.create({
@@ -148,6 +158,10 @@ router.post("/addwishlist/:id", async (req, res) => {
  */
 
 router.post("/addplayed/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: "Invalid game ID" });
+  }
+
   try {
     const gameID = { _id: new ObjectId(req.params.id) };
     const { token } = req.cookies;
@@ -155,7 +169,13 @@ router.post("/addplayed/:id", async (req, res) => {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
-    const decoded = jwt.verify(token, sectret);
+    let decoded;
+    try {
+      decoded = jwt.verify(token, sectret);
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
     const result = await UserGameModel.findOne({ user: decoded.id });
     if (!result) {
       const addedGame = await UserGameModel.create({
@@ -234,6 +254,10 @@ router.post("/addplayed/:id", async (req, res) => {
  */
 
 router.delete("/:list/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: "Invalid game ID" });
+  }
+
   try {
     const deleteCriteria = { _id: new ObjectId(req.params.id) };
     const list = req.params.list;
@@ -316,6 +340,10 @@ router.delete("/:list/:id", async (req, res) => {
  */
 
 router.patch("/:list/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: "Invalid game ID" });
+  }
+
   try {
     const updateCriteria = { _id: new ObjectId(req.params.id) };
     const list = req.params.list;
@@ -329,7 +357,9 @@ router.patch("/:list/:id", async (req, res) => {
     if (list === "wishList") {
       if (result["playedList"].includes(updateCriteria._id)) {
         console.log("Peli on jo playedList");
-        return res.status(409).json(result);
+        return res
+          .status(409)
+          .json({ message: "game is already in PlayedList" });
       }
 
       result[list] = result[list].filter(
@@ -346,7 +376,7 @@ router.patch("/:list/:id", async (req, res) => {
     if (list === "playedList") {
       if (result["wishList"].includes(updateCriteria._id)) {
         console.log("Peli on jo wishList");
-        return res.status(409).json(result);
+        return res.status(409).json({ message: "game is already in WishList" });
       }
       result[list] = result[list].filter(
         (id) => id.toString() !== updateCriteria._id.toString()

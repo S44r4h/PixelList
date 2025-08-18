@@ -16,7 +16,7 @@ const sectret = "kjs343kn3k36p5d0a1334hgw1"; // LAITA TÄMÄ .env!
 
 /**
  * @swagger
- * /siginuser/signin:
+ * /signinuser:
  *   post:
  *     summary: User sign-in
  *     description: Authenticates user with email and password, returns user info and sets auth token in an httpOnly cookie.
@@ -93,7 +93,7 @@ router.post("/", async (req, res) => {
           {},
           (err, token) => {
             if (err) {
-              throw err;
+              return res.status(500).json({ err: err.message });
             }
             res
               .cookie("token", token, {
@@ -102,7 +102,12 @@ router.post("/", async (req, res) => {
                 sameSite: "Strict",
                 maxAge: 24 * 60 * 60 * 1000, // 1 päivä
               })
-              .json(user);
+              .json({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+              });
           }
         );
       } else {

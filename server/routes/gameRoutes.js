@@ -2,6 +2,7 @@ import express from "express";
 import gamesModel from "../model/Game.js";
 import UserGameModel from "../model/UserGames.js";
 const router = express.Router();
+import mongoose from "mongoose";
 
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
@@ -10,7 +11,7 @@ import { ObjectId } from "mongodb";
 
 /**
  * @openapi
- * /games:
+ * /editgames:
  *   post:
  *     summary: Create a new game
  *     tags: [Games]
@@ -58,7 +59,7 @@ router.post("/", async (req, res) => {
 
 /**
  * @openapi
- * /games:
+ * /editgames:
  *   get:
  *     summary: Get all games
  *     tags: [Games]
@@ -84,7 +85,7 @@ router.get("/", async (req, res) => {
 
 /**
  * @openapi
- * /games/{id}:
+ * /editgames/{id}:
  *   get:
  *     summary: Get a game by ID
  *     tags: [Games]
@@ -124,17 +125,24 @@ router.get("/", async (req, res) => {
  */
 
 router.get("/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: "Invalid game ID format" });
+  }
+
   const query = { _id: new ObjectId(req.params.id) };
   const result = await gamesModel.findOne(query);
-  if (!result) {res.status(404).send("Not found");}
-  else {res.status(200).json(result);}
+  if (!result) {
+    res.status(404).send("Not found");
+  } else {
+    res.status(200).json(result);
+  }
 });
 
 /* DELETE GAME */
 
 /**
  * @openapi
- * /games/{id}:
+ * /editgames/{id}:
  *   delete:
  *     summary: Delete a game by ID
  *     tags: [Games]
@@ -166,6 +174,10 @@ router.get("/:id", async (req, res) => {
  */
 
 router.delete("/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: "Invalid game ID format" });
+  }
+
   try {
     const deleteCriteria = new ObjectId(req.params.id);
     const result = await gamesModel.findOneAndDelete(deleteCriteria);
@@ -185,7 +197,7 @@ router.delete("/:id", async (req, res) => {
 
 /**
  * @openapi
- * /games/{id}:
+ * /editgames/{id}:
  *   patch:
  *     summary: Update a game by ID
  *     tags: [Games]
@@ -218,6 +230,10 @@ router.delete("/:id", async (req, res) => {
  */
 
 router.patch("/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: "Invalid game ID format" });
+  }
+
   try {
     const updateCriteria = { _id: new ObjectId(req.params.id) };
     const updates = {
