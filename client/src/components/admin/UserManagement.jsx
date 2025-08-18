@@ -1,6 +1,5 @@
-import GameListSection from "./GamesListSection";
-import { UseGamesContext } from "../hooks/useGamesContext";
-import { useEffect, useState } from "react";
+import { UseGamesContext } from "../../hooks/useGamesContext";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function UserManagement() {
@@ -36,7 +35,7 @@ export default function UserManagement() {
     if (response.ok) {
       console.log(json);
       dispatch({ type: "DELETE_GAME", payload: json });
-      toast.dark("user deleted");
+      toast.success("user deleted");
     }
   };
 

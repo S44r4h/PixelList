@@ -112,7 +112,7 @@ router.post("/addwishlist/:id", async (req, res) => {
       return res.status(201).json(addedGame);
     }
     if (result.wishList.includes(gameID._id)) {
-      return res.status(500).json({ message: "game already Wishlist in list" });
+      return res.status(500).json({ message: "game already in Wishlist" });
     }
 
     result.wishList.push(gameID);
@@ -185,7 +185,7 @@ router.post("/addplayed/:id", async (req, res) => {
       return res.status(201).json(addedGame);
     }
     if (result.playedList.includes(gameID._id)) {
-      return res.status(500).json({ message: "game already in played list" });
+      return res.status(500).json({ message: "game already in Playedlist" });
     }
 
     result.playedList.push(gameID);

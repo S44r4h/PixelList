@@ -1,21 +1,21 @@
-
-
 import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/footter";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/footter";
 import { UserContextProvider } from "./context/userContext";
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
-    <UserContextProvider> {/* Jakaa käyttäjätiedon kaikille alikomponenteille */}
+    <UserContextProvider>
+      {" "}
+      {/* Jakaa käyttäjätiedon kaikille alikomponenteille */}
       <div className="max-w-6xl mx-auto">
-      <Navbar /> {/* Navigation */}
-      <Outlet /> {/* Tänne tulee dynaaminen sisältö*/}
+        <Navbar /> {/* Navigation */}
+        <Outlet /> {/* Tänne tulee dynaaminen sisältö*/}
       </div>
       <Footer /> {/* Footter */}
-      <ToastContainer/>
-    </UserContextProvider> 
+      <ToastContainer theme="dark" />
+    </UserContextProvider>
   );
 };
-export default App
+export default App;

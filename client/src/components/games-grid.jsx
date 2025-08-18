@@ -1,4 +1,3 @@
-import { content } from "../data/frontPageGrid.js";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -37,10 +36,10 @@ export default function Gamesgrid({ title, showAllGames }) {
     const data = await response.json();
 
     if (!response.ok) {
-      toast.dark(data.message);
+      toast.error(data.message);
       return;
     } else {
-      toast.dark(`game added to WishList`);
+      toast.success(`game added to WishList`);
     }
   };
 
@@ -60,10 +59,10 @@ export default function Gamesgrid({ title, showAllGames }) {
     const data = await response.json();
 
     if (!response.ok) {
-      toast.dark(data.message);
+      toast.error(data.message);
       return;
     } else {
-      toast.dark(`game added to PlayedList`);
+      toast.success(`game added to PlayedList`);
     }
   };
 

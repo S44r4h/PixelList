@@ -3,18 +3,16 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 
-import Record from "./components/Record";
-import RecordList from "./components/RecordList";
 import MainPage from "./components/MainPage";
-import SignIn from "./components/SignIn";
-import Register from "./components/Register";
+import SignIn from "./components/auth/SignIn";
+import Register from "./components/auth/Register";
 import DashBoard from "./components/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoutes";
-import GameAdminPanel from "./components/GameAdminPanel";
+import ProtectedRoute from "./components/routes/ProtectedRoutes";
+import GameAdminPanel from "./components/admin/GameAdminPanel";
 import { GameContextProvider } from "./context/GameContext";
-import AdminRoutes from "./components/AdminRoutes";
-import UserGameList from "./components/UsergameList";
-import UserManagement from "./components/UserManagement";
+import AdminRoutes from "./components/routes/AdminRoutes";
+import UserGameList from "./components/userGames/UsergameList";
+import UserManagement from "./components/admin/UserManagement";
 import ExploreGames from "./components/ExploreGames";
 import "./index.css";
 
@@ -26,26 +24,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <MainPage />,
-      },
-    ],
-  },
-  {
-    path: "/edit/:id",
-    element: <App />,
-    children: [
-      {
-        path: "/edit/:id",
-        element: <Record />,
-      },
-    ],
-  },
-  {
-    path: "/create",
-    element: <App />,
-    children: [
-      {
-        path: "/create",
-        element: <Record />,
       },
     ],
   },
@@ -80,16 +58,6 @@ const router = createBrowserRouter([
             <DashBoard />
           </ProtectedRoute>
         ),
-      },
-    ],
-  },
-  {
-    path: "/recordlist",
-    element: <App />,
-    children: [
-      {
-        path: "/recordlist",
-        element: <RecordList />,
       },
     ],
   },

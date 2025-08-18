@@ -1,7 +1,7 @@
 import Select from "react-select";
 import { useEffect, useState } from "react";
-import { UseGamesContext } from "../hooks/useGamesContext";
-import { genreOptions } from "../data/genreOptions";
+import { UseGamesContext } from "../../hooks/useGamesContext";
+import { genreOptions } from "../../data/genreOptions";
 import { toast } from "react-toastify";
 export default function UpdateGameForm({ currentGame }) {
   const { dispatch } = UseGamesContext();
@@ -57,7 +57,7 @@ export default function UpdateGameForm({ currentGame }) {
 
     if (response.ok) {
       dispatch({ type: "UPDATE_GAME", payload: json });
-      toast.dark("game updated");
+      toast.success("game updated");
       const modal = document.getElementById("my_modal_3");
       modal.close();
     }

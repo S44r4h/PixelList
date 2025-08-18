@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { UseGamesContext } from "../hooks/useGamesContext";
-import UpdateGameForm from "../components/UpdateGameForm";
+import { UseGamesContext } from "../../hooks/useGamesContext";
+import UpdateGameForm from "./UpdateGameForm";
 import { toast } from "react-toastify";
 
 export default function GameList() {
@@ -40,7 +40,7 @@ export default function GameList() {
     console.log(json);
     if (response.ok) {
       dispatch({ type: "DELETE_GAME", payload: json });
-      toast.dark("game deleted");
+      toast.success("game deleted");
     }
   };
 

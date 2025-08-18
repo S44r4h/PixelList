@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import GameListSection from "./GamesListSection";
-import { UseGamesContext } from "../hooks/useGamesContext";
+import GameListSection from "../GamesListSection";
+import { UseGamesContext } from "../../hooks/useGamesContext";
 import { toast } from "react-toastify";
 
 export default function UserGameList() {
@@ -38,7 +38,7 @@ export default function UserGameList() {
 
     if (response.ok) {
       dispatch({ type: `DELETE_FROM_${list}`, payload: json });
-      toast.dark("game deleted");
+      toast.success("game deleted");
     }
   };
 
@@ -55,10 +55,9 @@ export default function UserGameList() {
 
     if (response.ok) {
       dispatch({ type: `SWITCH_FROM_${list}`, payload: json });
-      toast.dark(`game switched from ${list}`);
-      console.log(json);
+      toast.success(`game switched from ${list}`);
     } else {
-      toast.dark(json.message);
+      toast.error(json.message);
     }
   };
 

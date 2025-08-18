@@ -3,7 +3,7 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { useContext } from "react";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../../context/userContext";
 import { toast } from "react-toastify";
 export default function Register() {
   const [Loginform, SetLoginform] = useState({
@@ -35,7 +35,7 @@ export default function Register() {
       setUser(userData);
       navigate("/dashboard");
     } else {
-      toast.dark(
+      toast.error(
         userData.message || "Unknown error" /* gives server json message */
       );
     }
