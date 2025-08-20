@@ -15,7 +15,7 @@ export const gamesReducer = (state, action) => {
     case "UPDATE_GAME":
       return {
         games: state.games.map((g) =>
-          g._id === action.payload._id ? action.payload : g
+          g.game === action.payload._id ? action.payload : g
         ),
       };
     case `DELETE_FROM_wishList`:
@@ -23,7 +23,7 @@ export const gamesReducer = (state, action) => {
         games: {
           ...state.games,
           wishList: state.games.wishList.filter(
-            (game) => game._id !== action.payload
+            (item) => item.game._id !== action.payload
           ),
         },
       };
@@ -32,7 +32,7 @@ export const gamesReducer = (state, action) => {
         games: {
           ...state.games,
           playedList: state.games.playedList.filter(
-            (game) => game._id !== action.payload
+            (item) => item.game._id !== action.payload
           ),
         },
       };

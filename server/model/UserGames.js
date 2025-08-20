@@ -7,14 +7,18 @@ const userGamesSchema = new Schema({
   user: {
     type: mongoose.Types.ObjectId,
   },
-  wishList: {
-    type: [mongoose.Types.ObjectId],
-    ref: "Game",
-  },
-  playedList: {
-    type: [mongoose.Types.ObjectId],
-    ref: "Game",
-  },
+  wishList: [
+    {
+      game: { type: mongoose.Types.ObjectId, ref: "Game" },
+      addedAt: { type: Date, default: Date.now },
+    },
+  ],
+  playedList: [
+    {
+      game: { type: mongoose.Types.ObjectId, ref: "Game" },
+      addedAt: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 const UserGameModel = mongoose.model("UserGames", userGamesSchema);

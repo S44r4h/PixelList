@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import GameListSection from "../GamesListSection";
+import GameListSection from "./GamesListSection";
 import { UseGamesContext } from "../../hooks/useGamesContext";
 import { toast } from "react-toastify";
 
@@ -18,7 +18,6 @@ export default function UserGameList() {
         return;
       }
       const json = await response.json();
-      console.log(json);
       dispatch({ type: "SET_GAMES", payload: json });
     }
     getWishList();

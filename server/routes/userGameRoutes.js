@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
   const decoded = jwt.verify(token, sectret);
 
   let games = await UserGameModel.findOne({ user: decoded.id })
-    .populate(["wishList", "playedList"])
+    .populate(["wishList.game", "playedList.game"])
     .exec();
 
   /* IF user dont have lists adds them */
@@ -107,7 +107,7 @@ router.post("/addwishlist/:id", async (req, res) => {
     if (!result) {
       const addedGame = await UserGameModel.create({
         user: decoded.id,
-        wishList: [gameID],
+        wishList: [{ game: gameID }],
       });
       return res.status(201).json(addedGame);
     }
@@ -115,7 +115,7 @@ router.post("/addwishlist/:id", async (req, res) => {
       return res.status(500).json({ message: "game already in Wishlist" });
     }
 
-    result.wishList.push(gameID);
+    result.wishList.push({ game: gameID });
     await result.save();
     return res.status(200).json(result);
   } catch (error) {
@@ -180,7 +180,7 @@ router.post("/addplayed/:id", async (req, res) => {
     if (!result) {
       const addedGame = await UserGameModel.create({
         user: decoded.id,
-        playedList: [gameID],
+        playedList: [{ game: gameID }],
       });
       return res.status(201).json(addedGame);
     }
@@ -188,7 +188,7 @@ router.post("/addplayed/:id", async (req, res) => {
       return res.status(500).json({ message: "game already in Playedlist" });
     }
 
-    result.playedList.push(gameID);
+    result.playedList.push({ game: gameID });
     await result.save();
     return res.status(200).json(result);
   } catch (error) {
@@ -267,11 +267,11 @@ router.delete("/:list/:id", async (req, res) => {
     }
     const decodedUser = jwt.verify(token, sectret);
     const result = await UserGameModel.findOne({ user: decodedUser.id });
-    console.log(result[list]);
-    if (result[list].includes(deleteCriteria._id)) {
+    const even = (element) => element.game.equals(deleteCriteria._id);
+    if (result[list].some(even)) {
       const removedId = deleteCriteria._id;
       result[list] = result[list].filter(
-        (id) => id.toString() !== deleteCriteria._id.toString()
+        (item) => item.game.toString() !== deleteCriteria._id.toString()
       );
       await result.save();
       return res.status(201).json(removedId);
@@ -353,9 +353,13 @@ router.patch("/:list/:id", async (req, res) => {
     }
     const decodedUser = jwt.verify(token, sectret);
     const result = await UserGameModel.findOne({ user: decodedUser.id });
-
+    console.log(`tässä id: ${updateCriteria}`);
     if (list === "wishList") {
-      if (result["playedList"].includes(updateCriteria._id)) {
+      const found = result.playedList.some(
+        (item) => item.game === updateCriteria._id.toString()
+      );
+      console.log(found);
+      if (found) {
         console.log("Peli on jo playedList");
         return res
           .status(409)
@@ -365,7 +369,7 @@ router.patch("/:list/:id", async (req, res) => {
       result[list] = result[list].filter(
         (id) => id.toString() !== updateCriteria._id.toString()
       );
-      result.playedList.push(updateCriteria._id);
+      result.playedList.push({ game: updateCriteria._id });
       await result.save();
       console.log(
         `delete from ${list} and added ${updateCriteria._id} to playedList`
@@ -381,7 +385,7 @@ router.patch("/:list/:id", async (req, res) => {
       result[list] = result[list].filter(
         (id) => id.toString() !== updateCriteria._id.toString()
       );
-      result.wishList.push(updateCriteria._id);
+      result.wishList.push({ game: updateCriteria._id });
       await result.save();
       console.log(
         `delete from ${list} and added ${updateCriteria._id} to wishLIST`
