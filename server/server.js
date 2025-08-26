@@ -27,7 +27,7 @@ app.use(xss());
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Reactin URL
+    origin: process.env.FRONTEND_URL, // Reactin URL
     credentials: true, // Mahdollistaa evästeiden käytön
   })
 );
