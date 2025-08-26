@@ -17,7 +17,9 @@ export default function GameList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/editgames/`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/editgames/`
+      );
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -33,9 +35,12 @@ export default function GameList() {
 
   /* DELETE */
   const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:5050/editgames/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/editgames/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     const json = await response.json();
     console.log(json);
     if (response.ok) {

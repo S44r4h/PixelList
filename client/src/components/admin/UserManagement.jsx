@@ -8,9 +8,12 @@ export default function UserManagement() {
   /* GET USERS */
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/usermanagement`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/usermanagement`,
+        {
+          credentials: "include",
+        }
+      );
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -26,10 +29,13 @@ export default function UserManagement() {
   /* DELETE USER */
 
   const deleteUser = async (id) => {
-    const response = await fetch(`http://localhost:5050/usermanagement/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/usermanagement/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
@@ -42,10 +48,13 @@ export default function UserManagement() {
   /* Change role */
 
   const changeRole = async (id) => {
-    const response = await fetch(`http://localhost:5050/usermanagement/${id}`, {
-      method: "PATCH",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/usermanagement/${id}`,
+      {
+        method: "PATCH",
+        credentials: "include",
+      }
+    );
 
     const json = await response.json();
     if (response.ok) {

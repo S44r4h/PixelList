@@ -6,7 +6,7 @@ export default function Navbar() {
   const { user } = useContext(UserContext);
 
   function logout() {
-    fetch("http://localhost:5050/signinuser/logout", {
+    fetch(`${import.meta.env.VITE_API_URL}/signinuser/logout`, {
       credentials: "include",
       method: "POST",
     });

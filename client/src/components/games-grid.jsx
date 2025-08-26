@@ -7,7 +7,9 @@ export default function Gamesgrid({ title, showAllGames }) {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getGames() {
-      const response = await fetch(`http://localhost:5050/editgames/`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/editgames/`
+      );
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -23,7 +25,7 @@ export default function Gamesgrid({ title, showAllGames }) {
   /* ADD SELECTED GAME TO WISHLIST */
   const addToWishList = async (e) => {
     const response = await fetch(
-      `http://localhost:5050/usergames/addwishlist/${e}`,
+      `${import.meta.env.VITE_API_URL}/usergames/addwishlist/${e}`,
       {
         method: "POST",
         headers: {
@@ -46,7 +48,7 @@ export default function Gamesgrid({ title, showAllGames }) {
   /* ADD SELECTED GAME TO playedList */
   const addToPlayedList = async (e) => {
     const response = await fetch(
-      `http://localhost:5050/usergames/addplayed/${e}`,
+      `${import.meta.env.VITE_API_URL}/usergames/addplayed/${e}`,
       {
         method: "POST",
         headers: {

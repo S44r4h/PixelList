@@ -43,7 +43,7 @@ export default function UpdateGameForm({ currentGame }) {
     e.preventDefault();
 
     let response = await fetch(
-      `http://localhost:5050/editgames/${currentGame._id}`,
+      `${import.meta.env.VITE_API_URL}/${currentGame._id}`,
       {
         method: "PATCH",
         headers: {

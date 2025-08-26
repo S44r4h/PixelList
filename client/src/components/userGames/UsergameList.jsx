@@ -9,9 +9,12 @@ export default function UserGameList() {
   /* GET ALL GAME-LISTS */
   useEffect(() => {
     async function getWishList() {
-      const response = await fetch(`http://localhost:5050/usergames`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/usergames`,
+        {
+          credentials: "include",
+        }
+      );
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -28,7 +31,7 @@ export default function UserGameList() {
   /* DELETE METHOD WISHLIST & PLAYEDLIST*/
   const handleDelete = async (id, list) => {
     const response = await fetch(
-      `http://localhost:5050/usergames/${list}/${id}`,
+      `${import.meta.env.VITE_API_URL}/usergames/${list}/${id}`,
       {
         method: "DELETE",
         credentials: "include",
@@ -45,7 +48,7 @@ export default function UserGameList() {
   const handleEdit = async (id, list) => {
     console.log(`tämä on ${id} ja lista on: ${list}`);
     const response = await fetch(
-      `http://localhost:5050/usergames/${list}/${id}`,
+      `${import.meta.env.VITE_API_URL}/usergames/${list}/${id}`,
       {
         method: "PATCH",
         credentials: "include",
