@@ -100,8 +100,8 @@ router.post("/", async (req, res) => {
             res
               .cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "Strict",
+                secure: true,
+                sameSite: "none", //PAKKO näin koska front ja back ei domain
                 maxAge: 24 * 60 * 60 * 1000, // 1 päivä
               })
               .json({
