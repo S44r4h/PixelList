@@ -20,7 +20,7 @@ export default function Register() {
     let response;
 
     // if we are adding a new record we will POST to /user.
-    response = await fetch(`${import.meta.env.VITE_API_URL}/signinuser`, {
+    response = await fetch(`${import.meta.env.VITE_API_URL}/signinuser/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
