@@ -188,7 +188,12 @@ router.get("/profile", (req, res) => {
  */
 
 router.post("/logout", async (req, res) => {
-  return res.cookie("token", "").json("ok");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
+  return res.json("ok");
 });
 
 export default router;
