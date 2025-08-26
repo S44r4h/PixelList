@@ -1,5 +1,5 @@
 import Gamesgrid from "./games-grid";
-import HerodashBoard from "./hero-dashboard";
+import HerodashBoard from "./Hero-dashboard";
 
 export default function DashBoard() {
   return (
