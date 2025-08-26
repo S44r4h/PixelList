@@ -8,9 +8,9 @@ import RegisterModel from "../model/Register.js";
 const router = express.Router();
 router.use(cookieParser());
 
-// sectret key for auth
+// secret key for auth is in .env folder
 
-const sectret = "kjs343kn3k36p5d0a1334hgw1"; // LAITA TÄMÄ .env!
+const secret = process.env.secret;
 
 /* Sign In */
 
@@ -81,7 +81,9 @@ router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await RegisterModel.findOne({ email: email });
+    const user = await RegisterModel.findOne({ email: email }).select(
+      "+password"
+    );
 
     if (user) {
       const passwordMatch = await bcrypt.compare(password, user.password);
@@ -89,7 +91,7 @@ router.post("/", async (req, res) => {
         console.log(`welcome ${user.name} ja role on ${user.role}`);
         jwt.sign(
           { id: user.id, name: user.name, role: user.role } /* Testi */,
-          sectret,
+          secret,
           {},
           (err, token) => {
             if (err) {
@@ -152,7 +154,7 @@ router.post("/", async (req, res) => {
 router.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, sectret, {}, (err, user) => {
+    jwt.verify(token, secret, {}, (err, user) => {
       //tarkistaa annetun token(user.name & id) ja sectret
       if (err) {
         return res.status(403).json({ message: "Invalid token" });

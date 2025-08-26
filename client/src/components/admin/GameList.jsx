@@ -68,6 +68,14 @@ export default function GameList() {
               <div className="text-xs uppercase font-semibold opacity-60">
                 {item.platform && item.platform.join(",")}
               </div>
+              <div className="font-semobold flex flex-wrap gap-1">
+                {item.genre &&
+                  item.genre.map((g, i) => (
+                    <div className="badge badge-soft badge-primary" key={i}>
+                      {g.label}
+                    </div>
+                  ))}
+              </div>
             </div>
             <button
               className="btn btn-square btn-ghost"

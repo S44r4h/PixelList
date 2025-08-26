@@ -8,7 +8,7 @@ router.use(cookieParser());
 
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
-const sectret = "kjs343kn3k36p5d0a1334hgw1"; // LAITA TÄMÄ .env!
+const secret = process.env.secret; // LAITA TÄMÄ .env!
 
 //READ USER GAMES
 
@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
   }
-  const decoded = jwt.verify(token, sectret);
+  const decoded = jwt.verify(token, secret);
 
   let games = await UserGameModel.findOne({ user: decoded.id })
     .populate(["wishList", "playedList"])
@@ -98,7 +98,7 @@ router.post("/addwishlist/:id", async (req, res) => {
 
     let decoded;
     try {
-      decoded = jwt.verify(token, sectret);
+      decoded = jwt.verify(token, secret);
     } catch (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -171,7 +171,7 @@ router.post("/addplayed/:id", async (req, res) => {
 
     let decoded;
     try {
-      decoded = jwt.verify(token, sectret);
+      decoded = jwt.verify(token, secret);
     } catch (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -265,7 +265,7 @@ router.delete("/:list/:id", async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    const decodedUser = jwt.verify(token, sectret);
+    const decodedUser = jwt.verify(token, secret);
     const result = await UserGameModel.findOne({ user: decodedUser.id });
     console.log(result[list]);
     if (result[list].includes(deleteCriteria._id)) {
@@ -351,7 +351,7 @@ router.patch("/:list/:id", async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    const decodedUser = jwt.verify(token, sectret);
+    const decodedUser = jwt.verify(token, secret);
     const result = await UserGameModel.findOne({ user: decodedUser.id });
 
     if (list === "wishList") {

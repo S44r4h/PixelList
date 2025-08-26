@@ -14,8 +14,7 @@ server/.env
 .env.test
 .env.production
 
-# Tailwind
-*.css
+
 
 # OS/Editor specific files
 .DS_Store

@@ -15,6 +15,7 @@ const RegisterSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false, // hides from all queries
   },
   role: {
     type: String,

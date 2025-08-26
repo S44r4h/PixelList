@@ -4,7 +4,7 @@ import RegisterModel from "../model/Register.js";
 import UserGameModel from "../model/UserGames.js";
 
 const router = express.Router();
-const sectret = "kjs343kn3k36p5d0a1334hgw1"; /* TÄMÄ .env! */
+const secret = process.env.secret; /* TÄMÄ .env! */
 
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
-    const decoded = jwt.verify(token, sectret);
+    const decoded = jwt.verify(token, secret);
     const results = await RegisterModel.find({
       _id: { $ne: decoded.id },
     }); /* filters logged user from list $ne - not equal */
@@ -112,7 +112,7 @@ router.delete("/:id", async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    const decoded = jwt.verify(token, sectret);
+    const decoded = jwt.verify(token, secret);
     if (decoded.role === "admin") {
       const result = await RegisterModel.findOneAndDelete(deleteCriteria);
       await UserGameModel.deleteOne({
@@ -188,7 +188,7 @@ router.patch("/:id", async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
     }
-    const decoded = jwt.verify(token, sectret);
+    const decoded = jwt.verify(token, secret);
     if (decoded.role === "admin") {
       /* SELVITÄ ONKO KÄYTTÄJÄ ADMIN / USER */
 

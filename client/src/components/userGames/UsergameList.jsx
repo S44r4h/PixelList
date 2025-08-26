@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import GameListSection from "../GamesListSection";
+import GameListSection from "./GamesListSection";
 import { UseGamesContext } from "../../hooks/useGamesContext";
 import { toast } from "react-toastify";
 

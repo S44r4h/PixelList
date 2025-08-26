@@ -14,6 +14,7 @@ import AdminRoutes from "./components/routes/AdminRoutes";
 import UserGameList from "./components/userGames/UsergameList";
 import UserManagement from "./components/admin/UserManagement";
 import ExploreGames from "./components/ExploreGames";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -44,6 +45,16 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/privacypolicy",
+    element: <App />,
+    children: [
+      {
+        path: "/privacypolicy",
+        element: <PrivacyPolicy />,
       },
     ],
   },
