@@ -12,7 +12,7 @@ export function UserContextProvider({ children }) {
       // Tässä lähetetään GET-pyyntö, joka tuo käyttäjän tiedot
       if (!user) {
         axios
-          .get(`${import.meta.env.VITE_API_URL}signinuser/profile`, {
+          .get(`${import.meta.env.VITE_API_URL}/signinuser/profile`, {
             withCredentials: true, // Tämä varmistaa, että evästeet (kuten token) lähetetään mukana
           })
           .then(({ data }) => {

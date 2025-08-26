@@ -22,7 +22,7 @@ export default function SignUp() {
     let response;
 
     // if we are adding a new record we will POST to /user.
-    response = await fetch("http://localhost:5050/user", {
+    response = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
