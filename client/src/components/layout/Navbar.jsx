@@ -3,14 +3,15 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 
 export default function Navbar() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   function logout() {
     fetch(`${import.meta.env.VITE_API_URL}/signinuser/logout`, {
       credentials: "include",
       method: "POST",
     });
-    user(null);
+
+    setUser(null);
   }
 
   return (
