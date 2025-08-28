@@ -9,7 +9,7 @@ const App = () => {
     <UserContextProvider>
       {" "}
       {/* Jakaa käyttäjätiedon kaikille alikomponenteille */}
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl min-h-screen mx-auto">
         <Navbar /> {/* Navigation */}
         <Outlet /> {/* Tänne tulee dynaaminen sisältö*/}
       </div>
