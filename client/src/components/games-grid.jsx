@@ -81,7 +81,10 @@ export default function Gamesgrid({ title, showAllGames }) {
           .map((item) => (
             <div className="card bg-base-300 shadow-sm">
               <figure>
-                <img src="Placeholder_600x400.webp" alt="game-image" />
+                <img
+                  src="../assets/Placeholder_600x400.webp"
+                  alt="game-image"
+                />
               </figure>
               <div className="card-body">
                 <h2 className="card-title"> {item.title}</h2>
