@@ -80,8 +80,10 @@ export default function Gamesgrid({ title, showAllGames }) {
             <div className="card bg-base-300 shadow-sm">
               <figure>
                 <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                  alt="Shoes"
+                  fetchpriority="high"
+                  rel="preload"
+                  src="Placeholder_600x400.webp"
+                  alt="game"
                 />
               </figure>
               <div className="card-body">
