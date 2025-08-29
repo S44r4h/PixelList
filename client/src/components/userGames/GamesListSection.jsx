@@ -21,6 +21,7 @@ export default function GameListSection({
               <div>
                 <img
                   className="size-10 rounded-box"
+                  alt="game-icon"
                   src="https://cdn-icons-png.flaticon.com/512/8952/8952199.png"
                 />
               </div>

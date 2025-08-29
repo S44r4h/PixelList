@@ -64,6 +64,7 @@ export default function GameList() {
           <li className="list-row" key={i}>
             <div>
               <img
+                alt="game-icon"
                 className="size-10 rounded-box"
                 src="https://cdn-icons-png.flaticon.com/512/8952/8952199.png"
               />
