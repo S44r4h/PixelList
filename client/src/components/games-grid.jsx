@@ -81,11 +81,7 @@ export default function Gamesgrid({ title, showAllGames }) {
           .map((item) => (
             <div className="card bg-base-300 shadow-sm">
               <figure>
-                <img
-                  loading="lazy"
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                  alt="Shoes"
-                />
+                <img src="Placeholder_600x400.webp" alt="game-image" />
               </figure>
               <div className="card-body">
                 <h2 className="card-title"> {item.title}</h2>
