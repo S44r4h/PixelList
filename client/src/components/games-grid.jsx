@@ -82,7 +82,7 @@ export default function Gamesgrid({ title, showAllGames }) {
             <div className="card bg-base-300 shadow-sm">
               <figure>
                 <img
-                  src="../assets/Placeholder_600x400.webp"
+                  src="https://placehold.net/4-800x600.png"
                   alt="game-image"
                 />
               </figure>
