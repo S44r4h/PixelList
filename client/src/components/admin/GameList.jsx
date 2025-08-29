@@ -77,28 +77,31 @@ export default function GameList() {
                   ))}
               </div>
             </div>
-            <button
-              className="btn btn-square btn-ghost"
-              onClick={() => {
-                handleDelete(item._id);
-              }}
-            >
-              <svg
-                className="size-[1.2em]"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+            <div class="tooltip" data-tip="Tallenna tiedot">
+              <button
+                aria-label="delete"
+                className="btn btn-square btn-ghost"
+                onClick={() => {
+                  handleDelete(item._id);
+                }}
               >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
+                <svg
+                  className="size-[1.2em]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
                 >
-                  <path d={trashCanIcon}></path>
-                </g>
-              </svg>
-            </button>
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path d={trashCanIcon}></path>
+                  </g>
+                </svg>
+              </button>
+            </div>
 
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
             <button
