@@ -38,6 +38,7 @@ export default function GameListSection({
                 </div>
               </div>
               <button
+                aria-label="delete"
                 className="btn btn-square btn-ghost"
                 onClick={() => {
                   onDelete(item._id, listName);
@@ -60,6 +61,7 @@ export default function GameListSection({
                 </svg>
               </button>
               <button
+                aria-label="switch-list"
                 className="btn btn-square btn-ghost"
                 onClick={() => {
                   onEdit(item._id, listName);
