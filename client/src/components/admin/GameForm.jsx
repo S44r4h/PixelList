@@ -165,7 +165,11 @@ export default function GameForm() {
             onChange={handleChange}
           />
 
-          <button type="submit" className="btn btn-primary mt-4">
+          <button
+            aria-label="submit"
+            type="submit"
+            className="btn btn-primary mt-4"
+          >
             Add game
           </button>
         </fieldset>

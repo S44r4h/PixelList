@@ -66,7 +66,11 @@ export default function Register() {
           }
         />
 
-        <button type="submit" className="btn btn-primary mt-4">
+        <button
+          aria-label="login"
+          type="submit"
+          className="btn btn-primary mt-4"
+        >
           Login
         </button>
         <p className="text-center p-4">

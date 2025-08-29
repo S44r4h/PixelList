@@ -100,6 +100,7 @@ export default function UserManagement() {
                   )}
                   <td>
                     <button
+                      aria-label="delete user"
                       className=" btn btn-error"
                       onClick={() => deleteUser(g._id)}
                     >

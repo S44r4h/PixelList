@@ -37,52 +37,56 @@ export default function GameListSection({
                   ))}
                 </div>
               </div>
-              <button
-                aria-label="delete"
-                className="btn btn-square btn-ghost"
-                onClick={() => {
-                  onDelete(item._id, listName);
-                }}
-              >
-                <svg
-                  className="size-[1.2em]"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
+              <div class="tooltip" data-tip="delete game">
+                <button
+                  aria-label="delete"
+                  className="btn btn-square btn-ghost"
+                  onClick={() => {
+                    onDelete(item._id, listName);
+                  }}
                 >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
+                  <svg
+                    className="size-[1.2em]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
                   >
-                    <path d={trashCanIcon}></path>
-                  </g>
-                </svg>
-              </button>
-              <button
-                aria-label="switch-list"
-                className="btn btn-square btn-ghost"
-                onClick={() => {
-                  onEdit(item._id, listName);
-                }}
-              >
-                <svg
-                  className="size-[1.2em]"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
+                    <g
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path d={trashCanIcon}></path>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+              <div class="tooltip" data-tip="switch list">
+                <button
+                  aria-label="switch-list"
+                  className="btn btn-square btn-ghost"
+                  onClick={() => {
+                    onEdit(item._id, listName);
+                  }}
                 >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
+                  <svg
+                    className="size-[1.2em]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
                   >
-                    <path d={editIcon}></path>
-                  </g>
-                </svg>
-              </button>
+                    <g
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path d={editIcon}></path>
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </li>
           ))}
       </ul>

@@ -83,7 +83,11 @@ export default function SignUp() {
           }
         />
 
-        <button type="submit" className="btn btn-primary mt-4">
+        <button
+          aria-label="register"
+          type="submit"
+          className="btn btn-primary mt-4"
+        >
           Register
         </button>
         <p className="text-center p-4">
