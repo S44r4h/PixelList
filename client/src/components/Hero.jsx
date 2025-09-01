@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
+
 export default function hero() {
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <div className="relative px-6 pt-14 lg:px-8">
       <div
@@ -20,19 +25,15 @@ export default function hero() {
             Your Ultimate Game Library Awaits
           </h1>
           <p className="mt-8 text-lg font-medium text-pretty  sm:text-xl/8">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+            A personal game tracker where you can log the games you've played
+            and curate your wishlist of titles to explore next.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a href="/register" className="btn btn-primary">
-              Register here!
-            </a>
-            <a
-              href="#"
-              className="text-sm/6 font-semibold text-primary link-hover"
-            >
-              About <span aria-hidden="true">→</span>
-            </a>
+            {!user && (
+              <a href="/register" className="btn btn-primary">
+                Register here!
+              </a>
+            )}
           </div>
         </div>
       </div>
