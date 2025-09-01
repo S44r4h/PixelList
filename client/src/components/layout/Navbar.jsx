@@ -95,7 +95,7 @@ export default function Navbar() {
                 onClick={logout}
                 className="text-xl btn btn-primary px-1"
               >
-                Logout
+                Log out
               </NavLink>
             </>
           )}
