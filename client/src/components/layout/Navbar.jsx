@@ -3,15 +3,14 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 
 export default function Navbar() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   function logout() {
-    fetch(`${import.meta.env.VITE_API_URL}/signinuser/logout`, {
+    fetch("http://localhost:5050/signinuser/logout", {
       credentials: "include",
       method: "POST",
     });
-
-    setUser(null);
+    user(null);
   }
 
   return (
@@ -41,15 +40,26 @@ export default function Navbar() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <NavLink to="/exploregames">Explore games</NavLink>
+                <NavLink to="/exploregames">About</NavLink>
               </li>
-              <li>
-                <NavLink to="/usergamelist">My game lists</NavLink>
-              </li>
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="/dashboard">Dashboard</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/exploregames">Explore games</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/usergamelist">My game lists</NavLink>
+                  </li>
+                </>
+              )}
+
               {user && user.role === "admin" && (
                 <>
                   <li>
-                    <NavLink to="/adminpanel">Manage Games</NavLink>
+                    <NavLink to="/adminpanel">Add games to site</NavLink>
                   </li>
                   <li>
                     <NavLink to="/usermanagement">Manage users</NavLink>
@@ -58,22 +68,29 @@ export default function Navbar() {
               )}
             </ul>
           </div>
-          <NavLink to="/dashboard" className="text-xl">
+          <NavLink to="/" className="text-xl">
             PixelList
           </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <NavLink to="/exploregames">Explore games</NavLink>
-            </li>
-            <li>
-              <NavLink to="/usergamelist">My game lists</NavLink>
-            </li>
+            {user && (
+              <>
+                <li>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/exploregames">Explore games</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/usergamelist">My game lists</NavLink>
+                </li>
+              </>
+            )}
             {user && user.role === "admin" && (
               <>
                 <li>
-                  <NavLink to="/adminpanel">Manage Games</NavLink>
+                  <NavLink to="/adminpanel">Add games to site</NavLink>
                 </li>
                 <li>
                   <NavLink to="/usermanagement">Manage users</NavLink>
