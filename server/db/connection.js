@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "./config.env" }); // Määritä tiedoston nimi oikein
 
-console.log("ATLAS_URI:", process.env.ATLAS_URI);
 const uri = process.env.ATLAS_URI || "";
 
 // Yhdistä MongoDB:hen Mongoosea käyttäen

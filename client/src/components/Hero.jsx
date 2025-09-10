@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
+
 export default function hero() {
+  const { user, setUser } = useContext(UserContext);
   return (
     <div className="relative px-6 pt-14 lg:px-8">
       <div
@@ -14,15 +18,7 @@ export default function hero() {
         />
       </div>
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-        <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-          <div className="relative rounded-full px-3 py-1 text-sm/6 ">
-            Announcing our next round of funding.{" "}
-            <a href="#" className="font-semibold text-primary link-hover">
-              <span aria-hidden="true" className="absolute inset-0 " />
-              Read more <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </div>
+        <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
         <div className="text-center">
           <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
             Your Ultimate Game Library Awaits
@@ -32,15 +28,11 @@ export default function hero() {
             lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a href="/login" className="btn btn-primary">
-              Register here!
-            </a>
-            <a
-              href="#"
-              className="text-sm/6 font-semibold text-primary link-hover"
-            >
-              About <span aria-hidden="true">→</span>
-            </a>
+            {!user && (
+              <a href="/register" className="btn btn-primary">
+                Register here!
+              </a>
+            )}
           </div>
         </div>
       </div>
