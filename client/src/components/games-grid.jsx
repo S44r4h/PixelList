@@ -82,7 +82,7 @@ export default function Gamesgrid({ title, showAllGames }) {
                 <img
                   fetchpriority="high"
                   rel="preload"
-                  src="Placeholder_600x400.webp"
+                  src="https://placehold.net/4-800x600.png"
                   alt="game"
                 />
               </figure>
