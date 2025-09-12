@@ -86,6 +86,13 @@ export default function SignUp() {
         <button type="submit" className="btn btn-primary mt-4">
           Register
         </button>
+        <p>
+          {" "}
+          <p className="text-center">
+            The information you provide will be stored in the database and used
+            only for the functionality of this application.
+          </p>
+        </p>
         <p className="text-center p-4">
           You have account?{" "}
           <NavLink className=" text-primary" to="/login">
