@@ -56,7 +56,7 @@ export default function Navbar() {
               {user && user.role === "admin" && (
                 <>
                   <li>
-                    <NavLink to="/adminpanel">Add games to site</NavLink>
+                    <NavLink to="/adminpanel">Manage games</NavLink>
                   </li>
                   <li>
                     <NavLink to="/usermanagement">Manage users</NavLink>
@@ -87,7 +87,7 @@ export default function Navbar() {
             {user && user.role === "admin" && (
               <>
                 <li>
-                  <NavLink to="/adminpanel">Add games to site</NavLink>
+                  <NavLink to="/adminpanel">Manage games</NavLink>
                 </li>
                 <li>
                   <NavLink to="/usermanagement">Manage users</NavLink>
