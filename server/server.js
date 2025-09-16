@@ -9,8 +9,8 @@ import gameRoutes from "./routes/gameRoutes.js";
 import userGameRoutes from "./routes/userGameRoutes.js";
 import UserManagement from "./routes/userManagementRoutes.js";
 import cookieParser from "cookie-parser";
-import swaggerUi from "swagger-ui-express";
-import swaggerSpec from "./swagger.js";
+//import swaggerUi from "swagger-ui-express";
+//import swaggerSpec from "./swagger.js";
 
 //import profileRoutes from './routes/profileRoutes.js'
 
@@ -33,12 +33,12 @@ app.use(
 );
 
 /* TÄÄ POIS? */
-app.get("/swagger.json", (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(swaggerSpec);
-});
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+//app.get("/swagger.json", (req, res) => {
+//  res.setHeader("Content-Type", "application/json");
+//  res.send(swaggerSpec);
+//});
+//
+//app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/user", userRoutes); // esim. userRoutes-reitit alkavat polusta /user.
 app.use("/signinuser", loginRoutes);

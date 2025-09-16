@@ -18,7 +18,6 @@ export default function UserGameList() {
         return;
       }
       const json = await response.json();
-      console.log(json);
       dispatch({ type: "SET_GAMES", payload: json });
     }
     getWishList();
@@ -43,7 +42,6 @@ export default function UserGameList() {
   };
 
   const handleEdit = async (id, list) => {
-    console.log(`tämä on ${id} ja lista on: ${list}`);
     const response = await fetch(
       `http://localhost:5050/usergames/${list}/${id}`,
       {

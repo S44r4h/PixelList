@@ -39,9 +39,6 @@ export default function Navbar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <NavLink to="/exploregames">About</NavLink>
-              </li>
               {user && (
                 <>
                   <li>
@@ -59,7 +56,7 @@ export default function Navbar() {
               {user && user.role === "admin" && (
                 <>
                   <li>
-                    <NavLink to="/adminpanel">Add games to site</NavLink>
+                    <NavLink to="/adminpanel">Manage games</NavLink>
                   </li>
                   <li>
                     <NavLink to="/usermanagement">Manage users</NavLink>
@@ -90,7 +87,7 @@ export default function Navbar() {
             {user && user.role === "admin" && (
               <>
                 <li>
-                  <NavLink to="/adminpanel">Add games to site</NavLink>
+                  <NavLink to="/adminpanel">Manage games</NavLink>
                 </li>
                 <li>
                   <NavLink to="/usermanagement">Manage users</NavLink>
