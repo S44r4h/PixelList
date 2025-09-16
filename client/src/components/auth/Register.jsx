@@ -2,11 +2,8 @@ import { Navigate, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
-export default function SignUp() {
-  //const [name, setName] = useState()
-  //const [email, setEmail] = useState()
-  //const [password, setPassword] = useState()
 
+export default function SignUp() {
   const [registerform, SetRegisterform] = useState({
     name: "",
     email: "",
