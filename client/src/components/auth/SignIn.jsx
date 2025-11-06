@@ -10,6 +10,7 @@ export default function Register() {
     email: "",
     password: "",
   });
+  let response;
 
   const navigate = useNavigate();
   const { setUser, loading } = useContext(UserContext);
@@ -17,7 +18,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const loginperson = { ...Loginform };
-    let response;
 
     // if we are adding a new record we will POST to /user.
     response = await fetch("http://localhost:5050/signinuser", {
